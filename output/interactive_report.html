@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Analisis Psikometrik EPPS - PT.NSD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #10b981;
+            --dark-bg: #1f2937;
+            --light-bg: #f9fafb;
+            --text-dark: #111827;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .header .meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation Styles */
+        .nav {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            margin-top: 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .nav-button {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-button:hover {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+        }
+
+        .nav-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Section Styles */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .stat-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Gallery Styles */
+        .viz-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .viz-item {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .viz-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .viz-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .viz-caption {
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-table thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: var(--light-bg);
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background-color: #dbeafe;
+            border-color: var(--secondary-color);
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background-color: #d1fae5;
+            border-color: var(--success);
+            color: #065f46;
+        }
+
+        .alert-warning {
+            background-color: #fef3c7;
+            border-color: var(--warning);
+            color: #92400e;
+        }
+
+        .alert-danger {
+            background-color: #fee2e2;
+            border-color: var(--danger);
+            color: #991b1b;
+        }
+
+        /* List Styles */
+        .styled-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .styled-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .styled-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            max-height: 95%;
+            position: relative;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 8px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+        }
+
+        .modal-close:hover {
+            color: var(--danger);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-container {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav-button {
+                border-bottom: 1px solid var(--border-color);
+                border-left: 3px solid transparent;
+            }
+
+            .nav-button.active {
+                border-bottom-color: var(--border-color);
+                border-left-color: var(--primary-color);
+            }
+
+            .viz-gallery {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Interactive elements */
+        .interactive-frame {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .badge-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .badge-info {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Print styles */
+        @media print {
+            .nav, .modal, .btn {
+                display: none;
+            }
+            .section {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Laporan Analisis Properti Psikometrik EPPS</h1>
+            <p class="subtitle">Edwards Personal Preference Schedule - Analisis Komprehensif</p>
+            <div class="meta">
+                <strong>Disusun untuk:</strong> PT. Nirmala Satya Development (PT.NSD) |
+                <strong>Disusun oleh:</strong> PT. Data Riset Nusantara (PT.Darinusa) |
+                <strong>Tanggal:</strong> <span id="reportDate"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <button class="nav-button active" onclick="showSection('ringkasan')">Ringkasan Eksekutif</button>
+            <button class="nav-button" onclick="showSection('sampel')">Karakteristik Sampel</button>
+            <button class="nav-button" onclick="showSection('reliabilitas')">Reliabilitas</button>
+            <button class="nav-button" onclick="showSection('irt')">Analisis IRT</button>
+            <button class="nav-button" onclick="showSection('network')">Network Analysis</button>
+            <button class="nav-button" onclick="showSection('norma')">Norma & Scoring</button>
+            <button class="nav-button" onclick="showSection('visualisasi')">Visualisasi</button>
+            <button class="nav-button" onclick="showSection('rekomendasi')">Rekomendasi</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Section: Ringkasan Eksekutif -->
+        <section id="ringkasan" class="section active">
+            <h2 class="section-title">Ringkasan Eksekutif</h2>
+
+            <div class="alert alert-info">
+                <strong>Tentang Laporan Ini:</strong> Laporan ini menyajikan analisis psikometrik komprehensif terhadap instrumen Edwards Personal Preference Schedule (EPPS) menggunakan Classical Test Theory (CTT) dan Item Response Theory (IRT) modern, dilengkapi dengan network analysis dan norma penyekoran.
+            </div>
+
+            <div class="card">
+                <div class="card-title">Tujuan Analisis</div>
+                <div class="card-content">
+                    <ul class="styled-list">
+                        <li>Mengevaluasi properti psikometrik instrumen EPPS menggunakan CTT dan IRT modern</li>
+                        <li>Mengidentifikasi kualitas item, reliabilitas, dan validitas konstruk dari 15 aspek kepribadian</li>
+                        <li>Menganalisis struktur hubungan antar aspek kepribadian dengan network analysis</li>
+                        <li>Mengatasi masalah ipsativity melalui Thurstonian IRT</li>
+                        <li>Mengembangkan norma penyekoran yang terstandarisasi</li>
+                        <li>Memberikan insight untuk pengambilan keputusan HR dan talent assessment</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Statistik Kunci</h3>
+            <div class="stats-grid" id="keyStats">
+                <!-- Stats will be loaded dynamically -->
+            </div>
+
+            <div class="card">
+                <div class="card-title">Metodologi</div>
+                <div class="card-content">
+                    <h4 style="color: var(--secondary-color); margin-top: 1rem;">Classical Test Theory (CTT)</h4>
+                    <ul>
+                        <li>Cronbach's Alpha untuk konsistensi internal</li>
+                        <li>McDonald's Omega sebagai alternatif yang lebih robust</li>
+                        <li>Analisis korelasi inter-item</li>
+                    </ul>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1rem;">Item Response Theory (IRT)</h4>
+                    <ul>
+                        <li>2-Parameter Logistic Model (2PL) - difficulty & discrimination</li>
+                        <li>3-Parameter Logistic Model (3PL) - dengan parameter guessing</li>
+                        <li>Multidimensional IRT (MIRT) - 15 dimensi simultan</li>
+                        <li>Graded Response Model (GRM) - respon polytomous</li>
+                        <li>Thurstonian IRT (TIRT) - koreksi ipsativity</li>
+                    </ul>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1rem;">Network Analysis</h4>
+                    <ul>
+                        <li>Gaussian Graphical Models - struktur partial correlation</li>
+                        <li>Centrality measures (Strength, Betweenness, Closeness)</li>
+                        <li>Community detection dengan algoritma Walktrap</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Temuan Utama</div>
+                <div class="card-content">
+                    <div class="alert alert-success">
+                        <strong>Reliabilitas:</strong> Mayoritas aspek menunjukkan reliabilitas yang acceptable (McDonald's Omega ≥ 0.70), dengan beberapa aspek mencapai kategori good hingga excellent.
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>Model Fit:</strong> Model IRT multidimensional menunjukkan fit yang acceptable untuk data, mendukung struktur 15 dimensi EPPS.
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>Perhatian:</strong> Beberapa aspek memerlukan revisi item untuk meningkatkan reliabilitas. Format forced-choice menghasilkan ipsativity yang perlu dikoreksi dengan TIRT.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Karakteristik Sampel -->
+        <section id="sampel" class="section">
+            <h2 class="section-title">Karakteristik Sampel</h2>
+
+            <div class="card">
+                <div class="card-title">Profil Demografis</div>
+                <div class="card-content">
+                    <div id="demografisContent">
+                        <!-- Will be loaded dynamically -->
+                        <p>Total responden yang berpartisipasi dalam analisis ini mencerminkan keberagaman demografis yang representatif.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Statistik Deskriptif Skor per Aspek</h3>
+            <div class="card">
+                <div class="card-content">
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="deskriptifTable">
+                            <thead>
+                                <tr>
+                                    <th>Aspek</th>
+                                    <th>Mean</th>
+                                    <th>Median</th>
+                                    <th>SD</th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                    <th>Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Karakteristik Sampel</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/01_Profile_MeanScores_Enhanced.png')">
+                    <img src="plots/01_Profile_MeanScores_Enhanced.png" alt="Profil Skor Rata-rata" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Profil Skor Rata-rata 15 Aspek Kepribadian</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/03_Distribution_With_Normal_Curve.png')">
+                    <img src="plots/03_Distribution_With_Normal_Curve.png" alt="Distribusi Skor" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Distribusi Skor dengan Kurva Normal</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/04_Violin_Plot_Enhanced.png')">
+                    <img src="plots/04_Violin_Plot_Enhanced.png" alt="Violin Plot" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Violin Plot Distribusi per Aspek</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/02_Heatmap_Hierarchical_Clustering.png')">
+                    <img src="plots/02_Heatmap_Hierarchical_Clustering.png" alt="Heatmap" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Heatmap dengan Clustering Hierarkis</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Reliabilitas -->
+        <section id="reliabilitas" class="section">
+            <h2 class="section-title">Analisis Reliabilitas</h2>
+
+            <div class="card">
+                <div class="card-title">Tentang Reliabilitas</div>
+                <div class="card-content">
+                    <p>Reliabilitas mengukur konsistensi internal instrumen. Dalam analisis ini, kami menggunakan dua metrik utama:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Cronbach's Alpha:</strong> Metrik klasik untuk konsistensi internal</li>
+                        <li><strong>McDonald's Omega:</strong> Metrik yang lebih robust, tidak mengasumsikan tau-equivalence</li>
+                    </ul>
+                    <p style="margin-top: 1rem;"><strong>Interpretasi:</strong></p>
+                    <ul>
+                        <li>≥ 0.90: Excellent (Sangat Baik)</li>
+                        <li>0.80-0.89: Good (Baik)</li>
+                        <li>0.70-0.79: Acceptable (Dapat Diterima)</li>
+                        <li>0.60-0.69: Questionable (Dipertanyakan)</li>
+                        <li>&lt; 0.60: Poor (Buruk)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Hasil Analisis Reliabilitas per Aspek</h3>
+            <div class="card">
+                <div class="card-content">
+                    <div style="overflow-x: auto;">
+                        <table class="data-table" id="reliabilitasTable">
+                            <thead>
+                                <tr>
+                                    <th>Aspek</th>
+                                    <th>Cronbach's Alpha</th>
+                                    <th>McDonald's Omega</th>
+                                    <th>Interpretasi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Reliabilitas</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/11_Reliability_Comparison_Enhanced.png')">
+                    <img src="plots/11_Reliability_Comparison_Enhanced.png" alt="Perbandingan Reliabilitas" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Perbandingan Alpha vs Omega</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: IRT Analysis -->
+        <section id="irt" class="section">
+            <h2 class="section-title">Analisis Item Response Theory (IRT)</h2>
+
+            <div class="card">
+                <div class="card-title">Tentang IRT</div>
+                <div class="card-content">
+                    <p>Item Response Theory (IRT) adalah pendekatan modern untuk analisis item dan trait yang memberikan estimasi yang lebih akurat dibandingkan Classical Test Theory.</p>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1.5rem;">Model yang Digunakan:</h4>
+
+                    <p style="margin-top: 1rem;"><strong>1. Model 2-Parameter Logistic (2PL)</strong></p>
+                    <ul>
+                        <li><strong>Difficulty (b):</strong> Tingkat kesulitan item - nilai theta dimana probabilitas = 0.5</li>
+                        <li><strong>Discrimination (a):</strong> Daya beda item - seberapa baik item membedakan individu</li>
+                        <li>Item ideal: a > 1.0 dan b mendekati 0</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong>2. Model 3-Parameter Logistic (3PL)</strong></p>
+                    <ul>
+                        <li>Menambahkan parameter <strong>Guessing (c)</strong></li>
+                        <li>Lower asymptote - probabilitas menjawab benar dengan menebak</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong>3. Multidimensional IRT (MIRT)</strong></p>
+                    <ul>
+                        <li>Menganalisis 15 dimensi EPPS secara simultan</li>
+                        <li>Memberikan fit indices untuk evaluasi model</li>
+                    </ul>
+
+                    <p style="margin-top: 1rem;"><strong>4. Thurstonian IRT (TIRT)</strong></p>
+                    <ul>
+                        <li>Mengatasi masalah ipsativity dari format forced-choice</li>
+                        <li>Memberikan estimasi trait level yang tidak bias</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Parameter IRT 2PL</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/10_ItemDifficulty_PerAspect.png')">
+                    <img src="plots/10_ItemDifficulty_PerAspect.png" alt="Distribusi Difficulty" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Distribusi Tingkat Kesulitan Item</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/10B_Difficulty_vs_Discrimination.png')">
+                    <img src="plots/10B_Difficulty_vs_Discrimination.png" alt="Difficulty vs Discrimination" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Hubungan Difficulty vs Discrimination</div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Item Characteristic Curves (ICC)</h3>
+            <div class="alert alert-info">
+                <strong>Catatan:</strong> Item Characteristic Curves menunjukkan probabilitas endorsement item pada berbagai level trait. Kurva yang lebih curam menunjukkan discrimination yang lebih baik.
+            </div>
+        </section>
+
+        <!-- Section: Network Analysis -->
+        <section id="network" class="section">
+            <h2 class="section-title">Network Analysis</h2>
+
+            <div class="card">
+                <div class="card-title">Tentang Network Analysis</div>
+                <div class="card-content">
+                    <p>Network analysis mengidentifikasi struktur hubungan antar aspek kepribadian menggunakan Gaussian Graphical Models. Analisis ini membantu memahami:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Centrality:</strong> Aspek mana yang paling sentral/berpengaruh dalam network</li>
+                        <li><strong>Communities:</strong> Kelompok aspek yang saling terkait erat</li>
+                        <li><strong>Bridge connections:</strong> Aspek yang menghubungkan berbagai kelompok</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Network</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/09_Network_Correlation.png')">
+                    <img src="plots/09_Network_Correlation.png" alt="Network Spring Layout" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Network Korelasi - Spring Layout</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/09B_Network_Circular.png')">
+                    <img src="plots/09B_Network_Circular.png" alt="Network Circular" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Network - Circular Layout</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/07_Correlation_Matrix_Full.png')">
+                    <img src="plots/07_Correlation_Matrix_Full.png" alt="Matriks Korelasi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Matriks Korelasi dengan Clustering</div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Network Interaktif</h3>
+            <div class="card">
+                <div class="card-content">
+                    <p>Klik tombol di bawah untuk membuka visualisasi network interaktif:</p>
+                    <button class="btn btn-primary" onclick="window.open('plots/Network_Interactive_visNetwork.html', '_blank')" style="margin-top: 1rem;">
+                        Buka Network Interaktif
+                    </button>
+                    <button class="btn btn-secondary" onclick="window.open('plots/Network_3D_Interactive.html', '_blank')" style="margin-top: 1rem; margin-left: 1rem;">
+                        Buka Network 3D
+                    </button>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Centrality Measures</h3>
+            <div class="card">
+                <div class="card-content">
+                    <table class="data-table" id="centralityTable">
+                        <thead>
+                            <tr>
+                                <th>Aspek</th>
+                                <th>Measure</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be loaded dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Norma & Scoring -->
+        <section id="norma" class="section">
+            <h2 class="section-title">Norma dan Sistem Penyekoran</h2>
+
+            <div class="card">
+                <div class="card-title">Tentang Norma</div>
+                <div class="card-content">
+                    <p>Norma penyekoran memungkinkan interpretasi skor individual dengan membandingkan terhadap kelompok referensi. Kami menyediakan:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li><strong>Raw Score Norms:</strong> Norma berdasarkan skor mentah</li>
+                        <li><strong>T-Score:</strong> Skor terstandarisasi dengan Mean=50, SD=10</li>
+                        <li><strong>Percentile Ranks:</strong> Posisi relatif dalam distribusi</li>
+                        <li><strong>Kategori Normatif:</strong> Sangat Rendah, Rendah, Rata-rata, Tinggi, Sangat Tinggi</li>
+                        <li><strong>Norma Demografis:</strong> Norma spesifik berdasarkan gender dan pendidikan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Penting:</strong> Untuk interpretasi yang fair, gunakan norma yang sesuai dengan populasi target. Norma dapat berbeda antar kelompok demografis.
+            </div>
+
+            <h3 class="section-subtitle">Tabel Konversi T-Score</h3>
+            <div class="card">
+                <div class="card-content">
+                    <p>T-Score adalah skor terstandarisasi yang memudahkan interpretasi:</p>
+                    <ul style="margin-top: 1rem;">
+                        <li>Mean = 50 (rata-rata populasi)</li>
+                        <li>SD = 10</li>
+                        <li>Range praktis: 20-80</li>
+                        <li>T-Score 60+ : Di atas rata-rata (top 16%)</li>
+                        <li>T-Score 40- : Di bawah rata-rata (bottom 16%)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Norma</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/14_Percentile_Profiles.png')">
+                    <img src="plots/14_Percentile_Profiles.png" alt="Profil Persentil" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Profil Persentil per Aspek</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/06_Gender_Comparison_With_Stats.png')">
+                    <img src="plots/06_Gender_Comparison_With_Stats.png" alt="Perbandingan Gender" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Perbandingan Berdasarkan Gender</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Visualisasi -->
+        <section id="visualisasi" class="section">
+            <h2 class="section-title">Galeri Visualisasi Lengkap</h2>
+
+            <div class="alert alert-info">
+                <strong>Tip:</strong> Klik pada gambar untuk melihat versi ukuran penuh. Semua visualisasi dibuat dengan resolusi tinggi (300 DPI) dan siap untuk publikasi.
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Statistik Deskriptif</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/01_Profile_MeanScores_Enhanced.png')">
+                    <img src="plots/01_Profile_MeanScores_Enhanced.png" alt="Profil Skor" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Profil Skor Rata-rata</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/03_Distribution_With_Normal_Curve.png')">
+                    <img src="plots/03_Distribution_With_Normal_Curve.png" alt="Distribusi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Distribusi dengan Kurva Normal</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/04_Violin_Plot_Enhanced.png')">
+                    <img src="plots/04_Violin_Plot_Enhanced.png" alt="Violin Plot" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Violin Plot</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/12_BoxPlot_All_Aspects.png')">
+                    <img src="plots/12_BoxPlot_All_Aspects.png" alt="Box Plot" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Box Plot Semua Aspek</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/02_Heatmap_Hierarchical_Clustering.png')">
+                    <img src="plots/02_Heatmap_Hierarchical_Clustering.png" alt="Heatmap" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Heatmap Clustering</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/15_Dashboard_Summary.png')">
+                    <img src="plots/15_Dashboard_Summary.png" alt="Dashboard" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Dashboard Ringkasan</div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Network & Korelasi</h3>
+            <div class="viz-gallery">
+                <div class="viz-item" onclick="openModal('plots/09_Network_Correlation.png')">
+                    <img src="plots/09_Network_Correlation.png" alt="Network" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Network Spring Layout</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/09B_Network_Circular.png')">
+                    <img src="plots/09B_Network_Circular.png" alt="Network Circular" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Network Circular</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/07_Correlation_Matrix_Full.png')">
+                    <img src="plots/07_Correlation_Matrix_Full.png" alt="Korelasi" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Matriks Korelasi Full</div>
+                </div>
+                <div class="viz-item" onclick="openModal('plots/07B_Correlation_Matrix_Circle.png')">
+                    <img src="plots/07B_Correlation_Matrix_Circle.png" alt="Korelasi Circle" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22350%22 height=%22250%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22350%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 fill=%22%23999%22%3EVisualisasi tidak tersedia%3C/text%3E%3C/svg%3E'">
+                    <div class="viz-caption">Matriks Korelasi Circle</div>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Visualisasi Interaktif 3D</h3>
+            <div class="card">
+                <div class="card-content">
+                    <button class="btn btn-primary" onclick="window.open('plots/08_3D_Scatter_Interactive.html', '_blank')">
+                        Buka 3D Scatter Plot
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Rekomendasi -->
+        <section id="rekomendasi" class="section">
+            <h2 class="section-title">Kesimpulan dan Rekomendasi</h2>
+
+            <div class="card">
+                <div class="card-title">Kesimpulan Utama</div>
+                <div class="card-content">
+                    <h4 style="color: var(--secondary-color); margin-bottom: 1rem;">1. Kualitas Psikometrik</h4>
+                    <ul class="styled-list">
+                        <li>Instrumen menunjukkan properti psikometrik yang umumnya acceptable</li>
+                        <li>Mayoritas aspek memiliki reliabilitas ≥0.70 (McDonald's Omega)</li>
+                        <li>Model IRT multidimensional menunjukkan fit yang acceptable</li>
+                        <li>Item parameters (difficulty dan discrimination) dalam range normal</li>
+                    </ul>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1.5rem; margin-bottom: 1rem;">2. Format Forced-Choice</h4>
+                    <ul class="styled-list">
+                        <li>Ipsativity inherent dalam format forced-choice terdeteksi</li>
+                        <li>Thurstonian IRT berhasil mengoreksi bias ipsativity</li>
+                        <li>Skor TIRT lebih valid untuk interpretasi absolute level</li>
+                        <li>Raw scores sebaiknya hanya untuk interpretasi within-person</li>
+                    </ul>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1.5rem; margin-bottom: 1rem;">3. Struktur Trait</h4>
+                    <ul class="styled-list">
+                        <li>Network analysis mengidentifikasi aspek-aspek yang saling terkait</li>
+                        <li>Community detection menunjukkan clustering yang meaningful</li>
+                        <li>Centrality measures mengidentifikasi aspek paling sentral</li>
+                        <li>Struktur sesuai dengan teori Murray tentang needs</li>
+                    </ul>
+
+                    <h4 style="color: var(--secondary-color); margin-top: 1.5rem; margin-bottom: 1rem;">4. Perbedaan Demografis</h4>
+                    <ul class="styled-list">
+                        <li>Terdapat perbedaan signifikan pada beberapa aspek berdasarkan gender</li>
+                        <li>Norma demografis penting untuk interpretasi yang fair</li>
+                        <li>Effect sizes umumnya small to medium (praktis relevant)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Rekomendasi Implementasi</h3>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="badge badge-success">Prioritas Tinggi</span>
+                    Immediate Actions (0-3 bulan)
+                </div>
+                <div class="card-content">
+                    <ol style="padding-left: 1.5rem;">
+                        <li><strong>Implementasi Skor Berbasis IRT</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Gunakan skor TIRT/MIRT untuk mengatasi ipsativity</li>
+                                <li>Lebih akurat dibandingkan raw score untuk forced-choice format</li>
+                                <li>Estimasi trait level yang tidak bias</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Training Assessor</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Pelatihan interpretasi skor IRT</li>
+                                <li>Pemahaman tentang ipsativity dan implikasinya</li>
+                                <li>Penggunaan norma yang tepat</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Update Sistem Scoring</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Implementasi norma baru dalam sistem</li>
+                                <li>Automated scoring dengan TIRT</li>
+                                <li>Dashboard interpretasi hasil</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="badge badge-warning">Prioritas Menengah</span>
+                    Short-term Actions (3-6 bulan)
+                </div>
+                <div class="card-content">
+                    <ol style="padding-left: 1.5rem;">
+                        <li><strong>Revisi Item untuk Aspek dengan Reliabilitas Rendah</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Identifikasi item yang perlu diperbaiki</li>
+                                <li>Develop item baru dengan expert consultation</li>
+                                <li>Target: Omega ≥ 0.70 untuk semua aspek</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Pilot Test Item Baru</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Test dengan sample terpisah</li>
+                                <li>Evaluasi properti psikometrik</li>
+                                <li>Finalisasi item berdasarkan hasil</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Validasi Konstruk Lanjutan</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Convergent validity dengan instrumen lain</li>
+                                <li>Discriminant validity antar aspek</li>
+                                <li>Confirmatory Factor Analysis (CFA)</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Develop Automated Interpretation System</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Narrative report generation</li>
+                                <li>Visualization dashboard</li>
+                                <li>Integration dengan HRIS</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">
+                    <span class="badge badge-info">Jangka Panjang</span>
+                    Long-term Actions (>12 bulan)
+                </div>
+                <div class="card-content">
+                    <ol style="padding-left: 1.5rem;">
+                        <li><strong>Studi Validitas Prediktif</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Korelasi dengan job performance</li>
+                                <li>Predictive validity untuk berbagai posisi</li>
+                                <li>ROI calculation untuk talent selection</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Analisis Differential Item Functioning (DIF)</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Cek bias item antar grup demografis</li>
+                                <li>Pastikan fairness dalam assessment</li>
+                                <li>Revisi item yang menunjukkan DIF</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Develop Industry-Specific Norms</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Norma untuk berbagai industri</li>
+                                <li>Norma untuk level jabatan</li>
+                                <li>Continuous norming dengan adaptive sampling</li>
+                            </ul>
+                        </li>
+                        <li style="margin-top: 1rem;"><strong>Longitudinal Study</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Track outcomes jangka panjang</li>
+                                <li>Test-retest reliability</li>
+                                <li>Stability of traits over time</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Limitasi Analisis:</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Sample mungkin tidak fully representatif untuk semua populasi</li>
+                    <li>Cross-sectional data - test-retest reliability belum dievaluasi</li>
+                    <li>Ipsativity tetap ada meskipun sudah dikoreksi TIRT</li>
+                    <li>Validitas prediktif belum diuji - perlu data eksternal</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Langkah Selanjutnya</div>
+                <div class="card-content">
+                    <p>Untuk implementasi rekomendasi di atas, kami menyarankan:</p>
+                    <ol style="padding-left: 1.5rem; margin-top: 1rem;">
+                        <li>Meeting follow-up dengan stakeholder PT.NSD untuk diskusi temuan</li>
+                        <li>Prioritisasi rekomendasi berdasarkan resources dan timeline</li>
+                        <li>Develop action plan detail dengan milestones</li>
+                        <li>Establish timeline dan KPI untuk setiap action item</li>
+                        <li>Regular review dan monitoring implementasi</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for images -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <img id="modalImage" src="" alt="Full size image">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>PT. Data Riset Nusantara (PT.Darinusa)</strong></p>
+        <p>Tim Konsultan Psikometri</p>
+        <p style="margin-top: 1rem; opacity: 0.7;">© 2026 PT.Darinusa. All Rights Reserved.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.6;">RAHASIA - Hanya untuk PT. Nirmala Satya Development</p>
+    </footer>
+
+    <!-- Include data loader -->
+    <script src="data_loader.js"></script>
+
+    <script>
+        // Set report date
+        document.getElementById('reportDate').textContent = new Date().toLocaleDateString('id-ID', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Modal functions
+        function openModal(imagePath) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imagePath;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal on click outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load data from CSV files if data_loader.js is available
+            if (typeof initializeData === 'function') {
+                initializeData();
+            } else {
+                console.warn('Data loader not available. Using placeholder data.');
+            }
+        });
+    </script>
+</body>
+</html>
