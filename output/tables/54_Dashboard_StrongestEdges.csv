@@ -1,0 +1,11 @@
+"From_Node","To_Node","weight"
+"Endurance","Heterosexuality",-0.406272975784382
+"Heterosexuality","Endurance",-0.406272975784382
+"Order","Endurance",0.404210686983271
+"Endurance","Order",0.404210686983271
+"Order","Aggression",-0.374177159254927
+"Aggression","Order",-0.374177159254927
+"Succorance","Endurance",-0.367372121995797
+"Endurance","Succorance",-0.367372121995797
+"Endurance","Aggression",-0.348612468249313
+"Aggression","Endurance",-0.348612468249313
