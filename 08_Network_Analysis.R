@@ -65,7 +65,7 @@ network <- tryCatch({
 
 # Plot network
 save_plot(
-  filename = "Network_GGM.png",
+  filename = file.path(CONFIG_PLOTS_DIR, "Network_GGM.png"),
   plot_function = function() {
     tryCatch({
       plot(network,
@@ -125,7 +125,7 @@ log_message("Centrality table saved: 25_Network_Centrality.csv", level = "INFO")
 
 # Plot centrality
 save_plot(
-  filename = "Network_Centrality.png",
+  filename = file.path(CONFIG_PLOTS_DIR, "Network_Centrality.png"),
   plot_function = function() {
     tryCatch({
       centralityPlot(network, include = c("Strength", "Betweenness", "Closeness"),
@@ -202,7 +202,7 @@ if(run_bootstrap) {
   if(!is.null(boot_result)) {
     # Plot stability
     save_plot(
-      filename = "Network_Stability.png",
+      filename = file.path(CONFIG_PLOTS_DIR, "Network_Stability.png"),
       plot_function = function() {
         plot(boot_result, labels = FALSE, order = "sample") +
           ggtitle("Network Stability (Bootstrap)")
@@ -283,7 +283,7 @@ log_message("Communities table saved: 28_Network_Communities.csv", level = "INFO
 
 # Plot dengan community colors
 save_plot(
-  filename = "Network_Communities.png",
+  filename = file.path(CONFIG_PLOTS_DIR, "Network_Communities.png"),
   plot_function = function() {
     tryCatch({
       plot(network,

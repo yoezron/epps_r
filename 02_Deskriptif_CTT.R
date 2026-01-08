@@ -64,7 +64,7 @@ desc_aspek$Aspek <- aspek_labels[rownames(desc_aspek)]
 desc_aspek <- desc_aspek[, c("Aspek", "n", "mean", "sd", "min", "max",
                              "median", "skew", "kurtosis")]
 
-write.csv(desc_aspek, "output/tables/02_Deskriptif_Aspek.csv", row.names = TRUE)
+write.csv(desc_aspek, "output/tables/01_Deskriptif_Aspek.csv", row.names = TRUE)
 
 # ===== RELIABILITAS (CRONBACH'S ALPHA & OMEGA) =====
 cat("\n=== ANALISIS RELIABILITAS ===\n")
@@ -105,7 +105,37 @@ for(aspek in aspek_epps) {
   }
 }
 
-write.csv(reliabilitas, "output/tables/03_Reliabilitas.csv", row.names = FALSE)
+write.csv(reliabilitas, "output/tables/02_Reliabilitas_Aspek.csv", row.names = FALSE)
+
+# ===== ITEM ANALYSIS (untuk dashboard) =====
+cat("\n=== ITEM ANALYSIS ===\n")
+
+item_analysis <- data.frame(
+  Item = character(),
+  Aspek = character(),
+  Mean = numeric(),
+  SD = numeric(),
+  stringsAsFactors = FALSE
+)
+
+for(aspek in aspek_epps) {
+  item_cols <- which(trait_names == aspek)
+  if(length(item_cols) > 0) {
+    data_aspek <- data_items[, item_cols, drop = FALSE]
+    data_aspek <- data_aspek[complete.cases(data_aspek), ]
+
+    for(i in 1:ncol(data_aspek)) {
+      item_analysis <- rbind(item_analysis, data.frame(
+        Item = names(data_aspek)[i],
+        Aspek = aspek_labels[aspek],
+        Mean = round(mean(data_aspek[, i], na.rm = TRUE), 3),
+        SD = round(sd(data_aspek[, i], na.rm = TRUE), 3)
+      ))
+    }
+  }
+}
+
+write.csv(item_analysis, "output/tables/03_Item_Analysis.csv", row.names = FALSE)
 
 # ===== KORELASI ANTAR ASPEK =====
 cat("\n=== KORELASI ANTAR ASPEK ===\n")
@@ -117,6 +147,16 @@ write.csv(cor_matrix, "output/tables/04_Korelasi_Aspek.csv", row.names = TRUE)
 
 # Visualisasi korelasi
 png("output/plots/01_Korelasi_Aspek.png", width = 2400, height = 2400, res = 300)
+corrplot(cor_matrix, method = "color", type = "upper",
+         tl.col = "black", tl.srt = 45, tl.cex = 0.8,
+         addCoef.col = "black", number.cex = 0.6,
+         col = colorRampPalette(c("#D73027", "white", "#1A9850"))(200),
+         title = "Matriks Korelasi Antar Aspek EPPS",
+         mar = c(0,0,2,0))
+dev.off()
+
+# Simpan juga dengan nama untuk dashboard
+png("output/plots/Correlation_Heatmap.png", width = 2400, height = 2400, res = 300)
 corrplot(cor_matrix, method = "color", type = "upper",
          tl.col = "black", tl.srt = 45, tl.cex = 0.8,
          addCoef.col = "black", number.cex = 0.6,

@@ -72,6 +72,9 @@ for(aspek in aspek_epps) {
 all_konversi <- do.call(rbind, tabel_konversi)
 write.csv(all_konversi, "output/tables/30_Tabel_Konversi_TScore.csv", row.names = FALSE)
 
+# Simpan juga norma T-score untuk dashboard (dengan nama yang diharapkan)
+write.csv(norma_raw, "output/tables/19_Norma_TScore.csv", row.names = FALSE)
+
 # ===== PERCENTILE RANKS =====
 cat("\n--- Percentile Ranks ---\n")
 
@@ -81,6 +84,17 @@ for(aspek in aspek_epps) {
   percentile_data[[paste0(aspek, "_Percentile")]] <-
     ecdf(scores)(scores) * 100
 }
+
+# Simpan norma percentile untuk dashboard
+norma_percentile <- data.frame(
+  Aspek = aspek_labels[aspek_epps],
+  P10 = norma_raw$P10,
+  P25 = norma_raw$P25,
+  P50 = norma_raw$P50,
+  P75 = norma_raw$P75,
+  P90 = norma_raw$P90
+)
+write.csv(norma_percentile, "output/tables/20_Norma_Percentile.csv", row.names = FALSE)
 
 # ===== KATEGORI NORMATIF =====
 cat("\n--- Kategori Normatif ---\n")

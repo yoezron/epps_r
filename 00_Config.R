@@ -200,9 +200,9 @@ CONFIG_REPORT_DATE_FORMAT <- "%Y-%m-%d"
 #' @export
 print_config <- function() {
   cat("\n")
-  cat("=" %R% 80, "\n")
+  cat(strrep("=", 80), "\n")
   cat("EPPS ANALYSIS CONFIGURATION SUMMARY\n")
-  cat("=" %R% 80, "\n\n")
+  cat(strrep("=", 80), "\n\n")
 
   cat("General Settings:\n")
   cat("  Random Seed:", CONFIG_RANDOM_SEED, "\n")
@@ -223,7 +223,7 @@ print_config <- function() {
   cat("  T-Score Mean:", CONFIG_TSCORE_MEAN, "\n")
   cat("  T-Score SD:", CONFIG_TSCORE_SD, "\n\n")
 
-  cat("=" %R% 80, "\n\n")
+  cat(strrep("=", 80), "\n\n")
 }
 
 #' Get configuration value with default fallback
