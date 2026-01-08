@@ -86,7 +86,7 @@ for(aspek in aspek_epps) {
 
 # Gabungkan semua parameter
 all_params_2pl <- do.call(rbind, parameter_2pl)
-write.csv(all_params_2pl, "output/tables/05_Parameter_2PL.csv", row.names = FALSE)
+write.csv(all_params_2pl, "output/tables/05_IRT_2PL_Parameters.csv", row.names = FALSE)
 
 # Simpan fit statistics
 write.csv(hasil_2pl, "output/tables/06_FitStatistics_2PL.csv", row.names = FALSE)

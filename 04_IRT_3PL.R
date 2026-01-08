@@ -80,7 +80,7 @@ for(aspek in aspek_epps) {
 }
 
 all_params_3pl <- do.call(rbind, parameter_3pl)
-write.csv(all_params_3pl, "output/tables/07_Parameter_3PL.csv", row.names = FALSE)
+write.csv(all_params_3pl, "output/tables/07_IRT_3PL_Parameters.csv", row.names = FALSE)
 write.csv(hasil_3pl, "output/tables/08_FitStatistics_3PL.csv", row.names = FALSE)
 
 cat("\n=== ANALISIS 3PL SELESAI ===\n")

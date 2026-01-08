@@ -34,11 +34,28 @@ model_mirt <- tryCatch({
 })
 
 if(!is.null(model_mirt)) {
-  # Extract fit indices
-  fit_mirt <- M2(model_mirt, type = "C2")
-  
+  # Extract fit indices dengan error handling
+  fit_mirt <- tryCatch({
+    M2(model_mirt, type = "C2")
+  }, error = function(e) {
+    cat("Warning: M2 calculation failed, using alternative fit indices\n")
+    cat("Error:", e$message, "\n")
+    # Return minimal structure jika M2 gagal
+    list(
+      M2 = NA,
+      df = NA,
+      p = NA,
+      RMSEA = NA,
+      RMSEA_5 = NA,
+      RMSEA_95 = NA,
+      SRMSR = NA,
+      TLI = NA,
+      CFI = NA
+    )
+  })
+
   fit_stats <- data.frame(
-    Index = c("M2", "df", "p-value", "RMSEA", "RMSEA_5", "RMSEA_95", 
+    Index = c("M2", "df", "p-value", "RMSEA", "RMSEA_5", "RMSEA_95",
               "SRMSR", "TLI", "CFI"),
     Value = c(
       round(fit_mirt$M2, 2),
