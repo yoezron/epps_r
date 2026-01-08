@@ -7,7 +7,7 @@
 # 1. Set working directory ke folder EPPS-Analysis
 # 2. Pastikan file epps_raw.csv ada di folder tersebut
 # 3. Jalankan script ini atau jalankan script individual secara bertahap
-# 
+#
 # ============================================================================
 
 cat("\n")
@@ -35,9 +35,9 @@ run_script <- function(script_name, description) {
   cat(">>> MENJALANKAN:", description, "\n")
   cat("    Script:", script_name, "\n")
   cat("------------------------------------------------------------------------------\n")
-  
+
   start_time <- Sys.time()
-  
+
   tryCatch({
     source(script_name)
     end_time <- Sys.time()
@@ -61,7 +61,7 @@ start_total <- Sys.time()
 results <- list()
 
 # Script 01: Setup dan Persiapan Data
-results$setup <- run_script("01_Setup_Data.R", 
+results$setup <- run_script("01_Setup_Data.R",
                             "Setup dan Persiapan Data")
 
 if(!results$setup) {
@@ -155,15 +155,15 @@ if(dir.exists("output")) {
   cat("Folder output/tables:\n")
   tables <- list.files("output/tables", pattern = "\\.csv$")
   cat("  Total tabel CSV:", length(tables), "file\n")
-  
+
   cat("\nFolder output/plots:\n")
   plots <- list.files("output/plots", pattern = "\\.(png|html)$")
   cat("  Total visualisasi:", length(plots), "file\n")
-  
+
   cat("\nFolder output/models:\n")
   models <- list.files("output/models", pattern = "\\.rds$")
   cat("  Total model tersimpan:", length(models), "file\n")
-  
+
   cat("\nLaporan utama:\n")
   if(file.exists("output/LAPORAN_PSIKOMETRIK_EPPS.txt")) {
     cat("  ✓ LAPORAN_PSIKOMETRIK_EPPS.txt\n")
