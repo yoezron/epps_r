@@ -1,18 +1,46 @@
 # ============================================================================
 # SCRIPT 08C: COMPARATIVE NETWORK ANALYSIS & PREDICTABILITY
-# Network analysis across groups dan predictability analysis
+# ============================================================================
+# Network analysis across demographic groups dan predictability analysis:
+# - Network comparison by gender and education (NCT)
+# - Node predictability (R-squared regression)
+# - Edge stability analysis (bootstrap)
+# - Expected influence and flow analysis
+# - Network resilience and small-world properties
+#
+# Dependencies: bootnet, qgraph, igraph, Matrix, NetworkComparisonTest
+# Input: output/data_processed.RData
+# Output: Comparative network plots and tables (39-48)
 # ============================================================================
 
+# Load configuration and utilities
+source("00_Config.R")
+source("00_Utilities.R")
+
+log_message("=== STARTING COMPARATIVE NETWORK ANALYSIS ===", level = "INFO")
+
+# Load processed data
+if (!file.exists("output/data_processed.RData")) {
+  stop("Data file not found. Please run 01_Setup_Data.R first.")
+}
 load("output/data_processed.RData")
 
-cat("\n=== COMPARATIVE NETWORK ANALYSIS & PREDICTABILITY ===\n\n")
+# Ensure required packages
+ensure_packages(c("bootnet", "qgraph", "igraph", "Matrix", "ggplot2", "reshape2", "tidyr"))
+tryCatch({
+  ensure_packages("NetworkComparisonTest")
+}, error = function(e) {
+  log_message("NetworkComparisonTest package not available, NCT will be skipped", level = "WARN")
+})
+
+log_message("Comparative Network: Data loaded successfully", level = "INFO")
 
 # Rename untuk visualisasi
 skor_aspek_label <- skor_aspek
 names(skor_aspek_label) <- aspek_labels[aspek_epps]
 
 # ===== 1. NETWORK COMPARISON BY GENDER =====
-cat("--- Network Comparison by Gender ---\n")
+log_message("Starting network comparison by gender", level = "INFO")
 
 # Detect gender column
 gender_col <- names(data_raw)[grepl("Jenis.*Kelamin|Gender|gender",
@@ -23,7 +51,7 @@ if(length(gender_col) > 0 && !is.null(data_raw[[gender_col[1]]])) {
 
   # Get unique groups (filter out NA and ensure minimum sample size)
   gender_groups <- table(gender_data)
-  valid_groups <- names(gender_groups[gender_groups >= 100])
+  valid_groups <- names(gender_groups[gender_groups >= CONFIG_NCT_MIN_GROUP_SIZE])
 
   if(length(valid_groups) >= 2) {
     cat("Comparing networks for groups:", paste(valid_groups, collapse = ", "), "\n")
@@ -35,13 +63,9 @@ if(length(gender_col) > 0 && !is.null(data_raw[[gender_col[1]]])) {
       idx <- which(gender_data == group)
       data_group <- skor_aspek_label[idx, ]
 
-      # Regularize if needed
+      # Regularize using utility function
       cor_group <- cor(data_group, use = "pairwise.complete.obs")
-      eigenvalues <- eigen(cor_group)$values
-      if(min(eigenvalues) < 0) {
-        regularization <- abs(min(eigenvalues)) + 0.01
-        diag(cor_group) <- diag(cor_group) + regularization
-      }
+      cor_group <- regularize_correlation_matrix(cor_group, method = "nearPD")
 
       network_by_gender[[group]] <- tryCatch({
         estimateNetwork(data_group,
@@ -79,12 +103,12 @@ if(length(gender_col) > 0 && !is.null(data_raw[[gender_col[1]]])) {
 
       nct_result <- tryCatch({
         NCT(data_g1, data_g2,
-            it = 100,  # Reduced iterations for speed
+            it = CONFIG_NCT_IT,
             test.edges = TRUE,
             test.centrality = TRUE,
             progressbar = FALSE)
       }, error = function(e) {
-        cat("NCT failed:", e$message, "\n")
+        log_message(sprintf("NCT failed: %s", e$message), level = "ERROR")
         NULL
       })
 
@@ -270,11 +294,13 @@ cat("✓ Network with predictability created successfully\n\n")
 cat("--- Individual Edge Stability ---\n")
 
 # Bootstrap edge weights
-set.seed(2025)
-n_boot <- 100
+set.seed(CONFIG_RANDOM_SEED)
+n_boot <- CONFIG_NETWORK_BOOTSTRAP_EDGE
 edge_boots <- array(NA, dim = c(ncol(skor_aspek_label),
                                 ncol(skor_aspek_label),
                                 n_boot))
+
+log_message(sprintf("Running edge stability bootstrap (%d iterations)", n_boot), level = "INFO")
 
 sample_size <- min(1000, nrow(skor_aspek_label))
 
@@ -649,15 +675,7 @@ write.csv(centrality_cor, "output/tables/48_Centrality_Correlations.csv")
 cat("✓ Centrality correlation analysis completed\n\n")
 
 # ===== SUMMARY REPORT =====
-cat("\n=== COMPARATIVE NETWORK ANALYSIS SELESAI ===\n\n")
-
-cat("OUTPUT SUMMARY:\n")
-cat("Tables created: 10 files (39-48)\n")
-cat("Plots created: Multiple visualizations in output/plots/\n")
-cat("Key Analysis Performed:\n")
-cat("  - Network Comparison (Gender/Edu)\n")
-cat("  - Node Predictability (R-squared)\n")
-cat("  - Edge Stability & Expected Influence\n")
-cat("  - Network Resilience & Small-worldness\n\n")
-
-cat("All results saved in output/tables/ and output/plots/\n")
+log_message("=== COMPARATIVE NETWORK ANALYSIS COMPLETED ===", level = "INFO")
+log_message("Tables saved: 39-48 (NCT, Predictability, Stability, Influence, etc.)", level = "INFO")
+log_message("Plots saved: Gender/Education networks, Predictability, Resilience, etc.", level = "INFO")
+log_message("Key analyses: Network comparison, Node predictability, Edge stability, Flow analysis", level = "INFO")

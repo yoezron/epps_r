@@ -1,42 +1,41 @@
 # ============================================================================
 # SCRIPT 08: NETWORK ANALYSIS ASPEK EPPS
 # ============================================================================
+# Analisis network psikometrik menggunakan Gaussian Graphical Models
+# dan analisis centrality untuk memahami struktur hubungan antar aspek.
+#
+# Dependencies: bootnet, qgraph, igraph, Matrix
+# Input: output/data_processed.RData
+# Output: Network plots, centrality tables, community detection results
+# ============================================================================
 
+# Load configuration and utilities
+source("00_Config.R")
+source("00_Utilities.R")
+
+log_message("=== STARTING NETWORK ANALYSIS ===", level = "INFO")
+
+# Load processed data
+if (!file.exists("output/data_processed.RData")) {
+  stop("Data file not found. Please run 01_Setup_Data.R first.")
+}
 load("output/data_processed.RData")
 
-cat("\n=== NETWORK ANALYSIS ANTAR ASPEK ===\n")
+# Ensure required packages
+ensure_packages(c("bootnet", "qgraph", "igraph", "Matrix"))
+
+log_message("Network Analysis: Data loaded successfully", level = "INFO")
 
 # Rename columns untuk visualisasi
 skor_aspek_label <- skor_aspek
 names(skor_aspek_label) <- aspek_labels[aspek_epps]
 
 # ===== GAUSSIAN GRAPHICAL MODEL (GGM) =====
-cat("\n--- Estimasi Network (EBICglasso) ---\n")
+log_message("Estimating Gaussian Graphical Model (GGM)", level = "INFO")
 
-# Check correlation matrix
+# Compute and regularize correlation matrix
 cor_matrix <- cor(skor_aspek_label, use = "pairwise.complete.obs")
-
-# Check if positive definite
-is_pd <- tryCatch({
-  chol(cor_matrix)
-  TRUE
-}, error = function(e) FALSE)
-
-if(!is_pd) {
-  cat("Warning: Correlation matrix not positive definite (common in forced-choice data)\n")
-  cat("Applying regularization...\n")
-
-  # Apply regularization to make it positive definite
-  eigenvalues <- eigen(cor_matrix)$values
-  min_eigen <- min(eigenvalues)
-
-  if(min_eigen < 0) {
-    # Add small constant to diagonal
-    regularization <- abs(min_eigen) + 0.01
-    diag(cor_matrix) <- diag(cor_matrix) + regularization
-    cat("Regularization applied: +", round(regularization, 4), "to diagonal\n")
-  }
-}
+cor_matrix <- regularize_correlation_matrix(cor_matrix, method = "nearPD")
 
 # Estimate network with error handling
 network <- tryCatch({
@@ -65,37 +64,45 @@ network <- tryCatch({
 })
 
 # Plot network
-png("output/plots/Network_GGM.png", width = 2800, height = 2800, res = 300)
-tryCatch({
-  plot(network,
-       layout = "spring",
-       title = "Network Antar Aspek EPPS (Gaussian Graphical Model)",
-       theme = "colorblind",
-       labels = names(skor_aspek_label),
-       label.cex = 1.2,
-       vsize = 8,
-       edge.labels = FALSE)
-}, error = function(e) {
-  # Fallback: plot correlation matrix as network
-  qgraph(cor_matrix,
-         layout = "spring",
-         title = "Network Antar Aspek EPPS (Correlation-based)",
-         theme = "colorblind",
-         labels = names(skor_aspek_label),
-         label.cex = 1.2,
-         vsize = 8,
-         minimum = 0.1,
-         cut = 0.3)
-})
-dev.off()
+save_plot(
+  filename = "Network_GGM.png",
+  plot_function = function() {
+    tryCatch({
+      plot(network,
+           layout = "spring",
+           title = "Network Antar Aspek EPPS (Gaussian Graphical Model)",
+           theme = "colorblind",
+           labels = names(skor_aspek_label),
+           label.cex = 1.2,
+           vsize = 8,
+           edge.labels = FALSE)
+    }, error = function(e) {
+      # Fallback: plot correlation matrix as network
+      qgraph(cor_matrix,
+             layout = "spring",
+             title = "Network Antar Aspek EPPS (Correlation-based)",
+             theme = "colorblind",
+             labels = names(skor_aspek_label),
+             label.cex = 1.2,
+             vsize = 8,
+             minimum = CONFIG_NETWORK_THRESHOLD_LOW,
+             cut = CONFIG_NETWORK_THRESHOLD_HIGH)
+    })
+  },
+  width = CONFIG_PLOT_WIDTH_XLARGE,
+  height = CONFIG_PLOT_HEIGHT_XLARGE,
+  res = CONFIG_PLOT_RESOLUTION
+)
+
+log_message("Network plot saved: Network_GGM.png", level = "INFO")
 
 # ===== CENTRALITY MEASURES =====
-cat("\n--- Analisis Centrality ---\n")
+log_message("Computing centrality measures", level = "INFO")
 
 centrality_measures <- tryCatch({
   centralityTable(network)
 }, error = function(e) {
-  cat("Standard centrality failed, computing from graph...\n")
+  log_message("Standard centrality failed, computing from graph", level = "WARN")
 
   # Manual centrality from graph
   g <- network$graph
@@ -111,39 +118,50 @@ centrality_measures <- tryCatch({
   )
 })
 
-write.csv(centrality_measures, "output/tables/25_Network_Centrality.csv", row.names = FALSE)
+write.csv(centrality_measures,
+          file.path(CONFIG_TABLES_DIR, "25_Network_Centrality.csv"),
+          row.names = FALSE)
+log_message("Centrality table saved: 25_Network_Centrality.csv", level = "INFO")
 
 # Plot centrality
-png("output/plots/Network_Centrality.png", width = 2400, height = 2000, res = 300)
-tryCatch({
-  centralityPlot(network, include = c("Strength", "Betweenness", "Closeness"),
-                 orderBy = "Strength",
-                 scale = "z-scores") +
-    ggtitle("Centrality Measures - Aspek EPPS") +
-    theme_minimal(base_size = 12)
-}, error = function(e) {
-  # Fallback: simple barplot
-  if("value" %in% names(centrality_measures)) {
-    strength_data <- centrality_measures[centrality_measures$measure == "Strength", ]
-    par(mar = c(5, 10, 4, 2))
-    barplot(strength_data$value,
-            names.arg = strength_data$node,
-            horiz = TRUE,
-            las = 1,
-            col = "steelblue",
-            main = "Network Strength - Aspek EPPS",
-            xlab = "Strength")
-  }
-})
-dev.off()
+save_plot(
+  filename = "Network_Centrality.png",
+  plot_function = function() {
+    tryCatch({
+      centralityPlot(network, include = c("Strength", "Betweenness", "Closeness"),
+                     orderBy = "Strength",
+                     scale = "z-scores") +
+        ggtitle("Centrality Measures - Aspek EPPS") +
+        theme_minimal(base_size = 12)
+    }, error = function(e) {
+      # Fallback: simple barplot
+      if("value" %in% names(centrality_measures)) {
+        strength_data <- centrality_measures[centrality_measures$measure == "Strength", ]
+        par(mar = c(5, 10, 4, 2))
+        barplot(strength_data$value,
+                names.arg = strength_data$node,
+                horiz = TRUE,
+                las = 1,
+                col = "steelblue",
+                main = "Network Strength - Aspek EPPS",
+                xlab = "Strength")
+      }
+    })
+  },
+  width = CONFIG_PLOT_WIDTH_MEDIUM,
+  height = CONFIG_PLOT_HEIGHT_SMALL,
+  res = CONFIG_PLOT_RESOLUTION
+)
+
+log_message("Centrality plot saved: Network_Centrality.png", level = "INFO")
 
 # ===== CLUSTERING COEFFICIENT =====
-cat("\n--- Clustering Coefficient ---\n")
+log_message("Computing clustering coefficient", level = "INFO")
 
 clustering <- tryCatch({
   clustcoef_auto(network$graph)
 }, error = function(e) {
-  cat("Clustering from network failed, using correlation matrix...\n")
+  log_message("Clustering from network failed, using fallback", level = "WARN")
   # Simple clustering from correlation
   rep(NA, ncol(cor_matrix))
 })
@@ -152,45 +170,53 @@ clustering_df <- data.frame(
   Aspek = names(skor_aspek_label),
   ClusteringCoefficient = round(clustering, 3)
 )
-write.csv(clustering_df, "output/tables/26_Network_Clustering.csv", row.names = FALSE)
+write.csv(clustering_df,
+          file.path(CONFIG_TABLES_DIR, "26_Network_Clustering.csv"),
+          row.names = FALSE)
+log_message("Clustering table saved: 26_Network_Clustering.csv", level = "INFO")
 
 # ===== NETWORK STABILITY (OPTIONAL) =====
-cat("\n--- Stability Analysis (Bootstrap) ---\n")
+log_message("Checking network stability configuration", level = "INFO")
 
-# Note: Bootstrap can be very slow and may fail for forced-choice data
-# Set run_bootstrap = FALSE to skip
-run_bootstrap <- FALSE
+# Use configuration parameter
+run_bootstrap <- CONFIG_NETWORK_RUN_BOOTSTRAP
 
 if(run_bootstrap) {
-  set.seed(2025)
+  set.seed(CONFIG_RANDOM_SEED)
   sample_idx <- sample(1:nrow(skor_aspek_label), min(1000, nrow(skor_aspek_label)))
   data_boot <- skor_aspek_label[sample_idx, ]
 
+  log_message("Running bootstrap stability analysis", level = "INFO")
+
   boot_result <- tryCatch({
     bootnet(data_boot,
-            nBoots = 500,  # Reduced from 1000
+            nBoots = CONFIG_NETWORK_BOOTSTRAP_ITER,
             default = "cor",  # Use simpler method
             type = "nonparametric",
             nCores = 1)
   }, error = function(e) {
-    cat("Bootstrap failed:", e$message, "\n")
-    cat("Skipping stability analysis (common for forced-choice data)\n")
+    log_message(sprintf("Bootstrap failed: %s", e$message), level = "ERROR")
     return(NULL)
   })
 
   if(!is.null(boot_result)) {
     # Plot stability
-    png("output/plots/Network_Stability.png", width = 2400, height = 2000, res = 300)
-    plot(boot_result, labels = FALSE, order = "sample") +
-      ggtitle("Network Stability (Bootstrap)")
-    dev.off()
+    save_plot(
+      filename = "Network_Stability.png",
+      plot_function = function() {
+        plot(boot_result, labels = FALSE, order = "sample") +
+          ggtitle("Network Stability (Bootstrap)")
+      },
+      width = CONFIG_PLOT_WIDTH_MEDIUM,
+      height = CONFIG_PLOT_HEIGHT_SMALL,
+      res = CONFIG_PLOT_RESOLUTION
+    )
 
-    saveRDS(boot_result, "output/models/Network_Bootstrap.rds")
-    cat("Bootstrap completed successfully\n")
+    saveRDS(boot_result, file.path(CONFIG_MODELS_DIR, "Network_Bootstrap.rds"))
+    log_message("Bootstrap completed successfully", level = "INFO")
   }
 } else {
-  cat("Bootstrap skipped (set run_bootstrap = TRUE to enable)\n")
-  cat("Note: Bootstrap is optional and often fails for forced-choice data\n")
+  log_message("Bootstrap skipped (CONFIG_NETWORK_RUN_BOOTSTRAP = FALSE)", level = "INFO")
 }
 
 # ===== EDGE WEIGHTS =====
@@ -209,11 +235,14 @@ if(!is.null(edge_weights) && is.matrix(edge_weights)) {
   edge_df <- edge_df[edge_df$Weight != 0 & edge_df$From != edge_df$To, ]
   edge_df <- edge_df[order(abs(edge_df$Weight), decreasing = TRUE), ]
 
-  write.csv(edge_df, "output/tables/27_Network_EdgeWeights.csv", row.names = FALSE)
+  write.csv(edge_df,
+            file.path(CONFIG_TABLES_DIR, "27_Network_EdgeWeights.csv"),
+            row.names = FALSE)
+  log_message("Edge weights table saved: 27_Network_EdgeWeights.csv", level = "INFO")
 }
 
 # ===== COMMUNITY DETECTION =====
-cat("\n--- Community Detection ---\n")
+log_message("Performing community detection", level = "INFO")
 
 library(igraph)
 
@@ -247,31 +276,48 @@ community_df <- data.frame(
   Aspek = names(skor_aspek_label),
   Community = communities$membership
 )
-write.csv(community_df, "output/tables/28_Network_Communities.csv", row.names = FALSE)
+write.csv(community_df,
+          file.path(CONFIG_TABLES_DIR, "28_Network_Communities.csv"),
+          row.names = FALSE)
+log_message("Communities table saved: 28_Network_Communities.csv", level = "INFO")
 
 # Plot dengan community colors
-png("output/plots/Network_Communities.png", width = 2800, height = 2800, res = 300)
-tryCatch({
-  plot(network,
-       layout = "spring",
-       groups = communities$membership,
-       title = "Network dengan Community Detection",
-       labels = names(skor_aspek_label),
-       label.cex = 1.2,
-       vsize = 8)
-}, error = function(e) {
-  # Fallback: plot dengan qgraph
-  qgraph(adj_matrix,
-         layout = "spring",
-         groups = communities$membership,
-         title = "Network dengan Community Detection",
-         labels = names(skor_aspek_label),
-         label.cex = 1.2,
-         vsize = 8,
-         minimum = 0.1)
-})
-dev.off()
+save_plot(
+  filename = "Network_Communities.png",
+  plot_function = function() {
+    tryCatch({
+      plot(network,
+           layout = "spring",
+           groups = communities$membership,
+           title = "Network dengan Community Detection",
+           labels = names(skor_aspek_label),
+           label.cex = 1.2,
+           vsize = 8)
+    }, error = function(e) {
+      # Fallback: plot dengan qgraph
+      qgraph(adj_matrix,
+             layout = "spring",
+             groups = communities$membership,
+             title = "Network dengan Community Detection",
+             labels = names(skor_aspek_label),
+             label.cex = 1.2,
+             vsize = 8,
+             minimum = CONFIG_NETWORK_THRESHOLD_LOW)
+    })
+  },
+  width = CONFIG_PLOT_WIDTH_XLARGE,
+  height = CONFIG_PLOT_HEIGHT_XLARGE,
+  res = CONFIG_PLOT_RESOLUTION
+)
 
-cat("\n=== NETWORK ANALYSIS SELESAI ===\n")
-cat("Network stability analysis:", ifelse(run_bootstrap, "completed", "skipped"), "\n")
-cat("Centrality measures dan communities tersimpan\n")
+log_message("Community plot saved: Network_Communities.png", level = "INFO")
+
+# ===== SUMMARY =====
+log_message("=== NETWORK ANALYSIS COMPLETED ===", level = "INFO")
+log_message(sprintf("Network stability analysis: %s",
+                    ifelse(run_bootstrap, "completed", "skipped")),
+            level = "INFO")
+log_message("Tables saved: 25-28 (Centrality, Clustering, EdgeWeights, Communities)",
+            level = "INFO")
+log_message("Plots saved: Network_GGM, Network_Centrality, Network_Communities",
+            level = "INFO")

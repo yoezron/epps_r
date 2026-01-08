@@ -1,33 +1,47 @@
 # ============================================================================
 # SCRIPT 08D: INTERACTIVE NETWORK VISUALIZATION & DYNAMIC ANALYSIS
-# Visualisasi network interaktif dan analisis dinamis
+# ============================================================================
+# Visualisasi network interaktif dan analisis dinamis:
+# - Interactive networks (visNetwork, networkD3)
+# - Force-directed layouts and Sankey diagrams
+# - Radial network visualization
+# - Network growth animation data
+# - Dynamic network by quartiles
+# - 3D network visualization
+#
+# Dependencies: visNetwork, networkD3, htmlwidgets, igraph, plotly
+# Input: output/data_processed.RData
+# Output: Interactive HTML plots and tables (49-55)
 # ============================================================================
 
+# Load configuration and utilities
+source("00_Config.R")
+source("00_Utilities.R")
+
+log_message("=== STARTING INTERACTIVE NETWORK & DYNAMIC ANALYSIS ===", level = "INFO")
+
+# Load processed data
+if (!file.exists("output/data_processed.RData")) {
+  stop("Data file not found. Please run 01_Setup_Data.R first.")
+}
 load("output/data_processed.RData")
 
-cat("\n=== INTERACTIVE NETWORK & DYNAMIC ANALYSIS ===\n\n")
+# Ensure required packages
+ensure_packages(c("visNetwork", "networkD3", "htmlwidgets", "igraph", "plotly",
+                  "ggplot2", "tidyr", "Matrix"))
 
-# Libraries
-library(visNetwork)
-library(networkD3)
-library(htmlwidgets)
+log_message("Interactive Network: Data loaded successfully", level = "INFO")
 
 # Rename untuk visualisasi
 skor_aspek_label <- skor_aspek
 names(skor_aspek_label) <- aspek_labels[aspek_epps]
 
 # ===== 1. PREPARE NETWORK DATA =====
-cat("--- Preparing Network Data ---\n")
+log_message("Preparing network data for interactive visualization", level = "INFO")
 
+# Compute and regularize correlation matrix
 cor_matrix <- cor(skor_aspek_label, use = "pairwise.complete.obs")
-
-# Regularize if needed
-eigenvalues <- eigen(cor_matrix)$values
-if(min(eigenvalues) < 0) {
-  regularization <- abs(min(eigenvalues)) + 0.01
-  diag(cor_matrix) <- diag(cor_matrix) + regularization
-  cat("Regularization applied\n")
-}
+cor_matrix <- regularize_correlation_matrix(cor_matrix, method = "nearPD")
 
 # Create edge list
 edges_data <- data.frame(
@@ -36,9 +50,9 @@ edges_data <- data.frame(
   weight = as.vector(cor_matrix)
 )
 
-# Remove self-loops and weak edges
+# Remove self-loops and weak edges (use config threshold)
 edges_data <- edges_data[edges_data$from != edges_data$to, ]
-edges_data <- edges_data[abs(edges_data$weight) > 0.15, ]
+edges_data <- edges_data[abs(edges_data$weight) > CONFIG_NETWORK_THRESHOLD_LOW, ]
 
 # Add edge attributes
 edges_data$color <- ifelse(edges_data$weight > 0,
@@ -51,10 +65,10 @@ edges_data$title <- paste0(names(skor_aspek_label)[edges_data$from],
                           ": ",
                           round(edges_data$weight, 3))
 
-cat("✓ Network data prepared\n\n")
+log_message("Network data prepared for interactive visualization", level = "INFO")
 
 # ===== 2. INTERACTIVE NETWORK - visNetwork =====
-cat("--- Creating Interactive Network (visNetwork) ---\n")
+log_message("Creating interactive network (visNetwork)", level = "INFO")
 
 # Node data
 library(igraph)
@@ -93,13 +107,13 @@ vis_net <- visNetwork(nodes_data, edges_data,
 
 # Save interactive network
 saveWidget(vis_net,
-          "output/plots/Network_Interactive_visNetwork.html",
+          file.path(CONFIG_PLOTS_DIR, "Network_Interactive_visNetwork.html"),
           selfcontained = TRUE)
 
-cat("✓ Interactive visNetwork created\n\n")
+log_message("Interactive visNetwork saved: Network_Interactive_visNetwork.html", level = "INFO")
 
 # ===== 3. FORCE-DIRECTED NETWORK - networkD3 =====
-cat("--- Creating Force-Directed Network (D3) ---\n")
+log_message("Creating force-directed network (D3)", level = "INFO")
 
 # Prepare data for networkD3 (0-indexed)
 edges_d3 <- data.frame(
@@ -133,13 +147,13 @@ force_net <- forceNetwork(Links = edges_d3,
                          opacityNoHover = 0.3)
 
 saveWidget(force_net,
-          "output/plots/Network_Force_Directed_D3.html",
+          file.path(CONFIG_PLOTS_DIR, "Network_Force_Directed_D3.html"),
           selfcontained = TRUE)
 
-cat("✓ Force-directed network created\n\n")
+log_message("Force-directed network saved: Network_Force_Directed_D3.html", level = "INFO")
 
 # ===== 4. SANKEY DIAGRAM - STRONGEST CONNECTIONS =====
-cat("--- Creating Sankey Diagram ---\n")
+log_message("Creating Sankey diagram for top connections", level = "INFO")
 
 # Get top 30 strongest edges
 top_edges <- edges_data[order(abs(edges_data$weight), decreasing = TRUE), ]
@@ -163,13 +177,13 @@ sankey_net <- sankeyNetwork(Links = sankey_links,
                            width = 800)
 
 saveWidget(sankey_net,
-          "output/plots/Network_Sankey_TopConnections.html",
+          file.path(CONFIG_PLOTS_DIR, "Network_Sankey_TopConnections.html"),
           selfcontained = TRUE)
 
-cat("✓ Sankey diagram created\n\n")
+log_message("Sankey diagram saved: Network_Sankey_TopConnections.html", level = "INFO")
 
 # ===== 5. RADIAL NETWORK =====
-cat("--- Creating Radial Network ---\n")
+log_message("Creating radial network visualization", level = "INFO")
 
 # 1. Ambil data membership dari komunitas
 # Kita perlu mengubah struktur flat (Node A ada di Grup 1) menjadi Hierarki (Grup 1 punya anak Node A)
@@ -217,13 +231,13 @@ radial_net <- radialNetwork(List = hc_list,
 
 # 4. Simpan Widget
 saveWidget(radial_net,
-           "output/plots/Network_Radial_Communities.html",
+           file.path(CONFIG_PLOTS_DIR, "Network_Radial_Communities.html"),
            selfcontained = TRUE)
 
-cat("✓ Radial network created successfully (Hierarchical structure built)\n\n")
+log_message("Radial network saved: Network_Radial_Communities.html", level = "INFO")
 
 # ===== 6. ANIMATED NETWORK GROWTH =====
-cat("--- Creating Network Growth Animation Data ---\n")
+log_message("Creating network growth animation data", level = "INFO")
 
 # Simulate network growth by edge weight threshold
 thresholds <- seq(0.5, 0.1, by = -0.05)
@@ -248,8 +262,10 @@ for(i in seq_along(thresholds)) {
 }
 
 growth_df <- do.call(rbind, growth_data)
-write.csv(growth_df, "output/tables/49_Network_Growth_Sequence.csv",
-         row.names = FALSE)
+write.csv(growth_df,
+          file.path(CONFIG_TABLES_DIR, "49_Network_Growth_Sequence.csv"),
+          row.names = FALSE)
+log_message("Growth sequence table saved: 49_Network_Growth_Sequence.csv", level = "INFO")
 
 # Plot growth curve
 library(ggplot2)
@@ -270,17 +286,13 @@ p_growth <- ggplot(growth_df, aes(x = Threshold)) +
        color = "") +
   theme(legend.position = "top")
 
-ggsave("output/plots/Network_Growth_Curve.png", p_growth,
-       width = 10, height = 6, dpi = 300)
+ggsave(file.path(CONFIG_PLOTS_DIR, "Network_Growth_Curve.png"), p_growth,
+       width = 10, height = 6, dpi = CONFIG_PLOT_RESOLUTION)
 
-cat("✓ Network growth data created\n\n")
+log_message("Growth curve plot saved: Network_Growth_Curve.png", level = "INFO")
 
 # ===== 7. DYNAMIC NETWORK BY QUARTILES =====
-cat("--- Creating Networks by Score Quartiles ---\n")
-
-# Pastikan library Matrix aktif
-if(!require(Matrix)) install.packages("Matrix")
-library(Matrix)
+log_message("Creating networks by score quartiles", level = "INFO")
 
 # Hitung strength global dulu jika belum ada
 if(!exists("strength")) {
@@ -342,7 +354,7 @@ for(node_idx in top_nodes) {
         qgraph(cor_q_clean,
                layout = "spring",
                graph = "cor",
-               threshold = 0.15,
+               threshold = CONFIG_NETWORK_THRESHOLD_LOW,
                title = paste("Network -", node_name, q_label,
                              "(n =", length(idx_q), ")"),
                labels = names(skor_aspek_label),
@@ -353,23 +365,21 @@ for(node_idx in top_nodes) {
                color = "white",       # Warna node netral
                theme = "colorblind")
       }, error = function(e) {
-        cat("  Skip plot due to error:", e$message, "\n")
+        log_message(sprintf("Skip quartile plot due to error: %s", e$message), level = "WARN")
       })
 
       dev.off()
     }
   }
 
-  cat("✓ Quartile networks created for:", node_name, "\n")
+  log_message(sprintf("Quartile networks created for: %s", node_name), level = "INFO")
 }
 
-cat("\n")
-
 # ===== 8. CORRELATION NETWORK OVER TIME SIMULATION =====
-cat("--- Simulating Temporal Network Changes ---\n")
+log_message("Simulating temporal network changes", level = "INFO")
 
 # Split data into time windows (simulate temporal data)
-n_windows <- 5
+n_windows <- CONFIG_NETWORK_TIME_WINDOWS
 window_size <- floor(nrow(skor_aspek_label) / n_windows)
 
 temporal_metrics <- data.frame(
@@ -409,8 +419,10 @@ for(w in 1:n_windows) {
   ))
 }
 
-write.csv(temporal_metrics, "output/tables/50_Temporal_Network_Metrics.csv",
-         row.names = FALSE)
+write.csv(temporal_metrics,
+          file.path(CONFIG_TABLES_DIR, "50_Temporal_Network_Metrics.csv"),
+          row.names = FALSE)
+log_message("Temporal metrics table saved: 50_Temporal_Network_Metrics.csv", level = "INFO")
 
 # Plot temporal changes
 library(tidyr)
@@ -434,13 +446,13 @@ p_temporal <- ggplot(temporal_long,
        x = "Time Window", y = "Standardized Value") +
   theme(legend.position = "top")
 
-ggsave("output/plots/Network_Temporal_Changes.png", p_temporal,
-       width = 10, height = 6, dpi = 300)
+ggsave(file.path(CONFIG_PLOTS_DIR, "Network_Temporal_Changes.png"), p_temporal,
+       width = 10, height = 6, dpi = CONFIG_PLOT_RESOLUTION)
 
-cat("✓ Temporal network analysis completed\n\n")
+log_message("Temporal plot saved: Network_Temporal_Changes.png", level = "INFO")
 
 # ===== 9. 3D NETWORK VISUALIZATION DATA =====
-cat("--- Preparing 3D Network Data ---\n")
+log_message("Preparing 3D network visualization data", level = "INFO")
 
 # Create 3D coordinates using MDS
 dist_matrix <- as.dist(1 - abs(cor_matrix))
@@ -455,8 +467,10 @@ nodes_3d <- data.frame(
   Community = cluster_louvain(g)$membership
 )
 
-write.csv(nodes_3d, "output/tables/51_Network_3D_Coordinates.csv",
-         row.names = FALSE)
+write.csv(nodes_3d,
+          file.path(CONFIG_TABLES_DIR, "51_Network_3D_Coordinates.csv"),
+          row.names = FALSE)
+log_message("3D coordinates table saved: 51_Network_3D_Coordinates.csv", level = "INFO")
 
 # Create plotly 3D scatter
 library(plotly)
@@ -478,13 +492,13 @@ plot_3d <- plot_ly(nodes_3d,
          ))
 
 saveWidget(plot_3d,
-          "output/plots/Network_3D_Interactive.html",
+          file.path(CONFIG_PLOTS_DIR, "Network_3D_Interactive.html"),
           selfcontained = TRUE)
 
-cat("✓ 3D network visualization created\n\n")
+log_message("3D network visualization saved: Network_3D_Interactive.html", level = "INFO")
 
 # ===== 10. NETWORK SUMMARY DASHBOARD DATA =====
-cat("--- Creating Dashboard Summary Data ---\n")
+log_message("Creating dashboard summary data", level = "INFO")
 
 dashboard_data <- list(
   NetworkStats = data.frame(
@@ -528,45 +542,23 @@ dashboard_data <- list(
 
 # Save dashboard data
 write.csv(dashboard_data$NetworkStats,
-         "output/tables/52_Dashboard_NetworkStats.csv",
+         file.path(CONFIG_TABLES_DIR, "52_Dashboard_NetworkStats.csv"),
          row.names = FALSE)
 write.csv(dashboard_data$TopNodes,
-         "output/tables/53_Dashboard_TopNodes.csv",
+         file.path(CONFIG_TABLES_DIR, "53_Dashboard_TopNodes.csv"),
          row.names = FALSE)
 write.csv(dashboard_data$StrongestEdges,
-         "output/tables/54_Dashboard_StrongestEdges.csv",
+         file.path(CONFIG_TABLES_DIR, "54_Dashboard_StrongestEdges.csv"),
          row.names = FALSE)
 write.csv(dashboard_data$Communities,
-         "output/tables/55_Dashboard_Communities.csv",
+         file.path(CONFIG_TABLES_DIR, "55_Dashboard_Communities.csv"),
          row.names = FALSE)
 
-cat("✓ Dashboard data created\n\n")
+log_message("Dashboard data tables saved: 52-55", level = "INFO")
 
 # ===== SUMMARY =====
-cat("\n=== INTERACTIVE & DYNAMIC NETWORK ANALYSIS SELESAI ===\n\n")
-
-cat("INTERACTIVE VISUALIZATIONS CREATED:\n")
-cat("  - visNetwork (zoomable, clickable)\n")
-cat("  - Force-Directed D3 (physics simulation)\n")
-cat("  - Sankey Diagram (top connections)\n")
-cat("  - Radial Network (community structure)\n")
-cat("  - 3D Interactive Plot (Plotly)\n\n")
-
-cat("STATIC VISUALIZATIONS:\n")
-cat("  - Network growth curve\n")
-cat("  - Temporal changes\n")
-cat("  - Quartile-based networks\n\n")
-
-cat("DATA TABLES CREATED: 7 files (49-55)\n")
-cat("  - Growth sequence\n")
-cat("  - Temporal metrics\n")
-cat("  - 3D coordinates\n")
-cat("  - Dashboard summaries\n\n")
-
-cat("INTERACTIVE FILES:\n")
-cat("  Open .html files in web browser for interactive exploration\n")
-cat("  - Zoom, pan, hover for node details\n")
-cat("  - Click nodes to highlight connections\n")
-cat("  - Rotate 3D visualization\n\n")
-
-cat("All files saved in output/plots/ and output/tables/\n")
+log_message("=== INTERACTIVE & DYNAMIC NETWORK ANALYSIS COMPLETED ===", level = "INFO")
+log_message("Interactive visualizations: visNetwork, Force-Directed D3, Sankey, Radial, 3D Plotly", level = "INFO")
+log_message("Static visualizations: Growth curve, Temporal changes, Quartile networks", level = "INFO")
+log_message("Tables saved: 49-55 (Growth, Temporal, 3D, Dashboard summaries)", level = "INFO")
+log_message("Interactive HTML files ready for web browser exploration", level = "INFO")
