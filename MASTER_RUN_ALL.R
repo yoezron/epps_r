@@ -96,6 +96,18 @@ results$grm <- run_script("07_GRM.R",
 results$network <- run_script("08_Network_Analysis.R",
                              "Network Analysis")
 
+# Script 08B: Advanced Network Analysis
+results$network_advanced <- run_script("08B_Advanced_Network.R",
+                                      "Advanced Network Analysis (Extended Metrics)")
+
+# Script 08C: Comparative Network Analysis
+results$network_comparative <- run_script("08C_Comparative_Network.R",
+                                         "Comparative Network & Predictability Analysis")
+
+# Script 08D: Interactive Network Visualization
+results$network_interactive <- run_script("08D_Interactive_Network.R",
+                                         "Interactive Network & Dynamic Visualization")
+
 # Script 09: Norma dan Scoring
 results$norma <- run_script("09_Norma_Scoring.R",
                            "Pembuatan Norma dan Sistem Penyekoran")
@@ -183,8 +195,11 @@ cat('  source("03_IRT_2PL.R")\n')
 cat('  ... dan seterusnya\n\n')
 
 cat("OPSI 3 - Jalankan analisis tertentu saja:\n")
-cat("  Misalnya hanya Network Analysis:\n")
+cat("  Misalnya hanya Network Analysis (semua):\n")
 cat('  load("output/data_processed.RData")\n')
-cat('  source("08_Network_Analysis.R")\n\n')
+cat('  source("08_Network_Analysis.R")\n')
+cat('  source("08B_Advanced_Network.R")\n')
+cat('  source("08C_Comparative_Network.R")\n')
+cat('  source("08D_Interactive_Network.R")\n\n')
 
 cat("==============================================================================\n\n")

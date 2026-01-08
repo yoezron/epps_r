@@ -1,35 +1,44 @@
 # ============================================================================
 # SCRIPT 08B: ADVANCED NETWORK ANALYSIS ANTAR ASPEK
-# Analisis network yang lebih komprehensif dengan multiple methods
+# ============================================================================
+# Analisis network yang lebih komprehensif dengan multiple methods:
+# - Multiple layouts (spring, circle, groups)
+# - Extended centrality measures (Eigenvector, PageRank, Authority)
+# - Bridge centrality analysis
+# - Global network metrics and clique analysis
+#
+# Dependencies: qgraph, igraph, Matrix, ggplot2, tidyr
+# Input: output/data_processed.RData
+# Output: Extended network plots and tables (29-38)
 # ============================================================================
 
+# Load configuration and utilities
+source("00_Config.R")
+source("00_Utilities.R")
+
+log_message("=== STARTING ADVANCED NETWORK ANALYSIS ===", level = "INFO")
+
+# Load processed data
+if (!file.exists("output/data_processed.RData")) {
+  stop("Data file not found. Please run 01_Setup_Data.R first.")
+}
 load("output/data_processed.RData")
 
-cat("\n=== ADVANCED NETWORK ANALYSIS ANTAR ASPEK EPPS ===\n\n")
+# Ensure required packages
+ensure_packages(c("qgraph", "igraph", "Matrix", "ggplot2", "tidyr", "reshape2"))
+
+log_message("Advanced Network: Data loaded successfully", level = "INFO")
 
 # Rename untuk visualisasi
 skor_aspek_label <- skor_aspek
 names(skor_aspek_label) <- aspek_labels[aspek_epps]
 
 # ===== 1. MULTIPLE NETWORK ESTIMATION METHODS =====
-cat("--- Estimasi Network dengan Multiple Methods ---\n")
+log_message("Estimating network with multiple methods", level = "INFO")
 
-# Kita butuh library Matrix untuk fungsi nearPD (biasanya sudah terinstall di R)
-if(!require(Matrix)) install.packages("Matrix")
-library(Matrix)
-
-# 1. Hitung Korelasi Awal
+# Compute and regularize correlation matrix using utility function
 raw_cor <- cor(skor_aspek_label, use = "pairwise.complete.obs")
-
-# 2. Force Matrix menjadi Positive Definite menggunakan nearPD
-# nearPD mencari matriks terdekat yang valid secara matematis
-cat("Applying rigorous regularization (nearPD)...\n")
-clean_fit <- nearPD(raw_cor, corr = TRUE, do2eigen = TRUE)
-cor_matrix <- as.matrix(clean_fit$mat)
-
-# Cek ulang eigenvalues untuk kepastian
-cat("New smallest eigenvalue:", min(eigen(cor_matrix)$values), "\n")
-cat("Matrix is now mathematically valid.\n")
+cor_matrix <- regularize_correlation_matrix(raw_cor, method = "nearPD")
 
 # 3. Method 1: Correlation Network
 # Kita gunakan tryCatch agar jika masih error, skrip tidak berhenti total
@@ -55,69 +64,84 @@ network_pcor <- tryCatch({
   network_cor
 })
 
-cat("✓ Networks estimated successfully\n\n")
+log_message("Networks estimated successfully", level = "INFO")
 
 # ===== 2. NETWORK VISUALIZATION - MULTIPLE LAYOUTS =====
-cat("--- Network Visualization ---\n")
+log_message("Creating network visualizations with multiple layouts", level = "INFO")
 
 # Layout 1: Spring layout
-png("output/plots/Network_Spring_Layout.png", width = 3000, height = 3000, res = 300)
-qgraph(cor_matrix,
-       layout = "spring",
-       graph = "cor",
-       threshold = "sig",
-       sampleSize = nrow(skor_aspek_label),
-       alpha = 0.05,
-       title = "Network Aspek EPPS - Spring Layout",
-       labels = names(skor_aspek_label),
-       label.cex = 1.0,
-       vsize = 7,
-       esize = 10,
-       posCol = "#1A9850",
-       negCol = "#D73027",
-       theme = "colorblind")
-dev.off()
+save_plot(
+  filename = "Network_Spring_Layout.png",
+  plot_function = function() {
+    qgraph(cor_matrix,
+           layout = "spring",
+           graph = "cor",
+           threshold = "sig",
+           sampleSize = nrow(skor_aspek_label),
+           alpha = 0.05,
+           title = "Network Aspek EPPS - Spring Layout",
+           labels = names(skor_aspek_label),
+           label.cex = 1.0,
+           vsize = 7,
+           esize = 10,
+           posCol = "#1A9850",
+           negCol = "#D73027",
+           theme = "colorblind")
+  },
+  width = CONFIG_PLOT_WIDTH_XLARGE,
+  height = CONFIG_PLOT_HEIGHT_XLARGE,
+  res = CONFIG_PLOT_RESOLUTION
+)
 
 # Layout 2: Circle layout
-png("output/plots/Network_Circle_Layout.png", width = 3000, height = 3000, res = 300)
-qgraph(cor_matrix,
-       layout = "circle",
-       graph = "cor",
-       threshold = 0.15,
-       title = "Network Aspek EPPS - Circle Layout",
-       labels = names(skor_aspek_label),
-       label.cex = 1.0,
-       vsize = 7,
-       esize = 10,
-       posCol = "#1A9850",
-       negCol = "#D73027",
-       theme = "colorblind")
-dev.off()
+save_plot(
+  filename = "Network_Circle_Layout.png",
+  plot_function = function() {
+    qgraph(cor_matrix,
+           layout = "circle",
+           graph = "cor",
+           threshold = CONFIG_NETWORK_THRESHOLD_LOW,
+           title = "Network Aspek EPPS - Circle Layout",
+           labels = names(skor_aspek_label),
+           label.cex = 1.0,
+           vsize = 7,
+           esize = 10,
+           posCol = "#1A9850",
+           negCol = "#D73027",
+           theme = "colorblind")
+  },
+  width = CONFIG_PLOT_WIDTH_XLARGE,
+  height = CONFIG_PLOT_HEIGHT_XLARGE,
+  res = CONFIG_PLOT_RESOLUTION
+)
 
 # Layout 3: Groups layout (berdasarkan similarity)
-png("output/plots/Network_Groups_Layout.png", width = 3000, height = 3000, res = 300)
-qgraph(cor_matrix,
-       layout = "groups",
-       graph = "cor",
-       threshold = 0.15,
-       title = "Network Aspek EPPS - Groups Layout",
-       labels = names(skor_aspek_label),
-       label.cex = 1.0,
-       vsize = 7,
-       esize = 10,
-       posCol = "#1A9850",
-       negCol = "#D73027")
-dev.off()
+save_plot(
+  filename = "Network_Groups_Layout.png",
+  plot_function = function() {
+    qgraph(cor_matrix,
+           layout = "groups",
+           graph = "cor",
+           threshold = CONFIG_NETWORK_THRESHOLD_LOW,
+           title = "Network Aspek EPPS - Groups Layout",
+           labels = names(skor_aspek_label),
+           label.cex = 1.0,
+           vsize = 7,
+           esize = 10,
+           posCol = "#1A9850",
+           negCol = "#D73027")
+  },
+  width = CONFIG_PLOT_WIDTH_XLARGE,
+  height = CONFIG_PLOT_HEIGHT_XLARGE,
+  res = CONFIG_PLOT_RESOLUTION
+)
 
-cat("✓ Network plots created\n\n")
+log_message("Network plots created (Spring, Circle, Groups)", level = "INFO")
 
 # ===== 3. CENTRALITY ANALYSIS - EXTENDED =====
-cat("--- Extended Centrality Analysis ---\n")
+log_message("Computing extended centrality measures", level = "INFO")
 
-# HAPUS/SKIP baris ini karena menyebabkan error pada objek manual
-# centrality_extended <- centralityTable(network_cor)
-
-# Kita gunakan perhitungan manual via igraph (lebih robust)
+# Use manual calculation via igraph (more robust)
 library(igraph)
 
 # Pastikan kita menggunakan cor_matrix yang valid dari Section 1
@@ -160,8 +184,10 @@ centrality_all <- data.frame(
 centrality_all[, -1] <- scale(centrality_all[, -1])
 
 # Simpan tabel
-write.csv(centrality_all, "output/tables/29_Network_Centrality_Extended.csv",
+write.csv(centrality_all,
+          file.path(CONFIG_TABLES_DIR, "29_Network_Centrality_Extended.csv"),
           row.names = FALSE)
+log_message("Extended centrality table saved: 29_Network_Centrality_Extended.csv", level = "INFO")
 
 # Plot extended centrality
 library(ggplot2)
@@ -492,17 +518,12 @@ write.csv(edge_stats, "output/tables/38_Network_Edge_Statistics.csv", row.names 
 cat("✓ Positive/Negative network analysis completed\n\n")
 
 # ===== SUMMARY =====
-cat("\n=== ADVANCED NETWORK ANALYSIS SELESAI ===\n")
-cat("Total output files created:\n")
-cat("  - Tables: 10 additional files (29-38)\n")
-cat("  - Plots: 9 additional visualizations\n")
-cat("  - Global metrics, bridge centrality, cliques analyzed\n")
-cat("  - Community structure detailed\n\n")
+log_message("=== ADVANCED NETWORK ANALYSIS COMPLETED ===", level = "INFO")
+log_message("Tables saved: 29-38 (Extended centrality, Bridge, Global metrics, etc.)", level = "INFO")
+log_message("Plots saved: Multiple layouts, Heatmap, Edge betweenness, Positive/Negative networks", level = "INFO")
 
-cat("Key Findings:\n")
-cat("  - Network density:", round(global_metrics$Value[1], 3), "\n")
-cat("  - Transitivity:", round(global_metrics$Value[2], 3), "\n")
-cat("  - Number of communities:", global_metrics$Value[6], "\n")
-cat("  - Positive edges:", edge_stats$Count[1], "\n")
-cat("  - Negative edges:", edge_stats$Count[2], "\n")
-cat("\nAll results saved in output/tables/ and output/plots/\n")
+log_message(sprintf("Network density: %.3f", global_metrics$Value[1]), level = "INFO")
+log_message(sprintf("Transitivity: %.3f", global_metrics$Value[2]), level = "INFO")
+log_message(sprintf("Number of communities: %d", global_metrics$Value[6]), level = "INFO")
+log_message(sprintf("Positive edges: %d, Negative edges: %d",
+                    edge_stats$Count[1], edge_stats$Count[2]), level = "INFO")
