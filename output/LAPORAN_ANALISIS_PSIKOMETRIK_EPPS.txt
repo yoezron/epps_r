@@ -1,0 +1,583 @@
+
+
+
+================================================================================ 
+================================================================================ 
+
+                  LAPORAN ANALISIS PROPERTI PSIKOMETRIK
+                                   DAN
+                            INSIGHT DATA
+
+                  Edwards Personal Preference Schedule
+                              (EPPS)
+
+================================================================================ 
+================================================================================ 
+
+
+DISUSUN UNTUK:
+  PT. Nirmala Satya Development (PT.NSD)
+
+DISUSUN OLEH:
+  PT. Data Riset Nusantara (PT.Darinusa)
+  Tim Konsultan Psikometri
+
+TANGGAL LAPORAN:
+  08 Januari 2026 
+
+VERSI DOKUMEN:
+  2.0 - Analisis Komprehensif dengan IRT Modern
+
+-------------------------------------------------------------------------------- 
+
+KERAHASIAAN:
+Laporan ini bersifat RAHASIA dan hanya diperuntukkan bagi PT. Nirmala Satya
+Development. Dilarang memperbanyak, menyebarluaskan, atau menggunakan
+sebagian atau seluruh isi laporan ini tanpa izin tertulis dari PT.NSD.
+
+================================================================================ 
+
+
+
+
+================================================================================ 
+DAFTAR ISI 
+================================================================================ 
+
+BAB I    : RINGKASAN EKSEKUTIF ......................................... 1
+           1.1 Tujuan Analisis
+           1.2 Metodologi
+           1.3 Temuan Kunci
+           1.4 Rekomendasi Utama
+
+BAB II   : KARAKTERISTIK SAMPEL ........................................ 2
+           2.1 Profil Demografis
+           2.2 Statistik Deskriptif Sampel
+           2.3 Visualisasi: [Referensi Plot]
+
+BAB III  : DESKRIPSI INSTRUMEN EPPS .................................... 3
+           3.1 15 Aspek Kepribadian EPPS
+           3.2 Struktur Item
+           3.3 Format Forced-Choice
+
+BAB IV   : ANALISIS RELIABILITAS (CLASSICAL TEST THEORY) ............... 4
+           4.1 Cronbach's Alpha
+           4.2 McDonald's Omega
+           4.3 Interpretasi dan Implikasi
+           4.4 Visualisasi: [11_Reliability_Comparison_Enhanced.png]
+
+BAB V    : ANALISIS DISTRIBUSI SKOR .................................... 5
+           5.1 Statistik Deskriptif per Aspek
+           5.2 Uji Normalitas
+           5.3 Analisis Outliers
+           5.4 Visualisasi: [01-04, 12, 14]
+
+BAB VI   : ANALISIS ITEM RESPONSE THEORY (IRT) ......................... 6
+           6.1 Model 2-Parameter Logistic (2PL)
+           6.2 Model 3-Parameter Logistic (3PL)
+           6.3 Multidimensional IRT (MIRT)
+           6.4 Graded Response Model (GRM)
+           6.5 Visualisasi: [10A, 10B - Item Parameters]
+
+BAB VII  : THURSTONIAN IRT (KOREKSI FORCED-CHOICE) ..................... 7
+           7.1 Masalah Ipsativity
+           7.2 Solusi TIRT
+           7.3 Hasil dan Interpretasi
+
+BAB VIII : ANALISIS NETWORK (STRUKTUR HUBUNGAN ANTAR ASPEK) ............ 8
+           8.1 Gaussian Graphical Model
+           8.2 Centrality Measures
+           8.3 Community Detection
+           8.4 Visualisasi: [07A, 07B, 09A, 09B]
+
+BAB IX   : ANALISIS PERBANDINGAN DEMOGRAFIS ............................ 9
+           9.1 Perbandingan Berdasarkan Jenis Kelamin
+           9.2 Perbandingan Berdasarkan Pendidikan
+           9.3 Uji Statistik dan Signifikansi
+           9.4 Visualisasi: [06, 06B]
+
+BAB X    : NORMA DAN SISTEM PENYEKORAN ................................. 10
+           10.1 Norma Raw Score
+           10.2 T-Score
+           10.3 Percentile Ranks
+           10.4 Kategori Normatif
+           10.5 Norma Demografis
+
+BAB XI   : INSIGHT DAN TEMUAN KUNCI .................................... 11
+           11.1 Temuan Psikometrik
+           11.2 Temuan Demografis
+           11.3 Temuan Network Analysis
+           11.4 Implikasi Praktis
+
+BAB XII  : KESIMPULAN DAN REKOMENDASI .................................. 12
+           12.1 Kesimpulan
+           12.2 Rekomendasi Terstruktur
+           12.3 Limitasi Analisis
+           12.4 Saran Penelitian Lanjutan
+
+LAMPIRAN : REFERENSI TEKNIS DAN VISUALISASI ............................. 13
+           A. Daftar Visualisasi
+           B. Daftar Tabel Output
+           C. Glossary Istilah Teknis
+           D. Referensi Literatur
+
+================================================================================ 
+
+
+
+
+================================================================================ 
+BAB I: RINGKASAN EKSEKUTIF 
+================================================================================ 
+
+1.1 TUJUAN ANALISIS
+-------------------------------------------------------------------------------- 
+
+Analisis ini bertujuan untuk:
+
+1. Mengevaluasi properti psikometrik instrumen Edwards Personal Preference
+   Schedule (EPPS) menggunakan metode Classical Test Theory (CTT) dan Item
+   Response Theory (IRT) modern.
+
+2. Mengidentifikasi kualitas item, reliabilitas, dan validitas konstruk dari
+   15 aspek kepribadian yang diukur.
+
+3. Menganalisis struktur hubungan antar aspek kepribadian menggunakan network
+   analysis dan Gaussian Graphical Models.
+
+4. Mengatasi masalah ipsativity yang inherent dalam format forced-choice
+   melalui Thurstonian IRT.
+
+5. Mengembangkan norma penyekoran yang representatif dan terstandarisasi
+   untuk populasi target.
+
+6. Memberikan insight berbasis data untuk pengambilan keputusan HR dan
+   assessment talent di PT. Nirmala Satya Development.
+
+
+1.2 METODOLOGI
+-------------------------------------------------------------------------------- 
+
+Analisis dilakukan menggunakan pendekatan multi-method:
+
+A. CLASSICAL TEST THEORY (CTT)
+   - Cronbach's Alpha untuk konsistensi internal
+   - McDonald's Omega sebagai alternatif yang lebih robust
+   - Analisis korelasi inter-item
+
+B. ITEM RESPONSE THEORY (IRT)
+   - 2-Parameter Logistic Model (2PL) untuk difficulty dan discrimination
+   - 3-Parameter Logistic Model (3PL) dengan parameter guessing
+   - Multidimensional IRT (MIRT) untuk 15 dimensi simultan
+   - Graded Response Model (GRM) untuk respon polytomous
+   - Thurstonian IRT (TIRT) untuk koreksi ipsativity
+
+C. NETWORK ANALYSIS
+   - Gaussian Graphical Models untuk struktur partial correlation
+   - Centrality measures (Strength, Betweenness, Closeness)
+   - Community detection dengan algoritma Walktrap
+
+D. ANALISIS KOMPARATIF
+   - Uji t independen untuk perbandingan gender
+   - ANOVA untuk perbandingan tingkat pendidikan
+   - Effect size calculation (Cohen's d)
+
+E. VISUALISASI
+   - 20+ visualisasi berkualitas tinggi (300 DPI)
+   - Interactive 3D scatter plots
+   - Hierarchical clustering heatmaps
+   - Network diagrams
+
+SAMPLE:
+  Total Responden  : 6464 orang
+  Total Item       : 420 item
+  Total Aspek      : 15 aspek kepribadian
+  Periode Data     : Januari 2026
+
+
+1.3 TEMUAN KUNCI
+-------------------------------------------------------------------------------- 
+
+A. RELIABILITAS
+
+   • Rata-rata McDonald's Omega    : 0.652
+   • Aspek dengan reliabilitas ≥0.70: 6 dari 15 (40.0%)
+   • Reliabilitas tertinggi        : Heterosexuality (Omega = 0.848)
+   • Reliabilitas terendah         : Deference (Omega = 0.490)
+     → Perlu revisi item atau penambahan item
+
+B. DISTRIBUSI SKOR
+
+   • Aspek dengan skor rata-rata tertinggi: Endurance (M=18.35, SD=4.25)
+   • Aspek dengan skor rata-rata terendah : Heterosexuality (M=5.20, SD=4.53)
+   • Variabilitas tertinggi               : Order (Var=20.85)
+   • Variabilitas terendah                : Exhibition (Var=10.75)
+
+D. NETWORK STRUCTURE
+
+   Aspek paling sentral (Top 3 by Strength):
+   1. Order (Strength = 3.006)
+   2. Aggression (Strength = 2.963)
+   3. Endurance (Strength = 2.787)
+
+   → Aspek-aspek ini memiliki koneksi terkuat dengan aspek lainnya
+   → Penting untuk memahami profil kepribadian secara holistik
+
+
+1.4 REKOMENDASI UTAMA
+-------------------------------------------------------------------------------- 
+
+Berdasarkan temuan analisis, berikut rekomendasi utama:
+
+PRIORITAS TINGGI:
+
+1. IMPLEMENTASI SKOR BERBASIS IRT
+   → Gunakan skor TIRT atau MIRT untuk mengatasi ipsativity
+   → Lebih akurat dibandingkan raw score untuk forced-choice format
+   → Estimasi trait level yang tidak bias
+
+2. REVISI ITEM UNTUK ASPEK DENGAN RELIABILITAS RENDAH
+   → Deference (Omega = 0.490) perlu item tambahan atau revisi
+   → Target minimum: Omega ≥ 0.70 untuk semua aspek
+   → Konsultasi dengan expert untuk item development
+
+3. PENGGUNAAN NORMA YANG TEPAT
+   → Gunakan norma demografis sesuai populasi target
+   → Update norma secara periodik (setiap 3-5 tahun)
+   → Pertimbangkan norma spesifik untuk industri/jabatan
+
+PRIORITAS MENENGAH:
+
+4. VALIDASI KONSTRUK LANJUTAN
+   → Uji validitas konvergen dengan instrumen lain
+   → Uji validitas diskriminan antar aspek
+   → Confirmatory Factor Analysis (CFA)
+
+5. ANALISIS DIFFERENTIAL ITEM FUNCTIONING (DIF)
+   → Cek bias item antar grup demografis
+   → Pastikan fairness dalam assessment
+
+REKOMENDASI JANGKA PANJANG:
+
+6. PENGEMBANGAN SISTEM INTERPRETASI OTOMATIS
+   → Dashboard interaktif untuk interpretasi hasil
+   → Narrative report generation
+   → Integration dengan HRIS
+
+7. PENELITIAN VALIDITAS PREDIKTIF
+   → Korelasi dengan job performance
+   → Longitudinal study untuk track outcomes
+   → ROI calculation untuk talent selection
+
+================================================================================ 
+
+
+
+
+================================================================================ 
+BAB II: KARAKTERISTIK SAMPEL 
+================================================================================ 
+
+2.1 PROFIL DEMOGRAFIS
+-------------------------------------------------------------------------------- 
+
+Total Responden: 6464 orang
+
+JENIS KELAMIN:
+  Laki-laki           : 3891 orang (60.2%)
+  Perempuan           : 2573 orang (39.8%)
+
+TINGKAT PENDIDIKAN:
+  D1                  :   86 orang (1.3%)
+  D2                  :    7 orang (0.1%)
+  D3                  :  350 orang (5.4%)
+  D4                  :   95 orang (1.5%)
+  S1                  : 2171 orang (33.6%)
+  S2                  :   68 orang (1.1%)
+  S3                  :    4 orang (0.1%)
+  SD                  :   16 orang (0.2%)
+  SMA                 : 1599 orang (24.7%)
+  SMK                 : 1736 orang (26.9%)
+  SMP                 :  332 orang (5.1%)
+
+USIA:
+  Rata-rata (Mean)    : 25.53 tahun
+  Median              : 24.00 tahun
+  Standar Deviasi (SD): 9.58 tahun
+  Minimum             : 14 tahun
+  Maximum             : 57 tahun
+  Range               : 43 tahun
+
+  Distribusi Kelompok Usia:
+    <25       : 3432 orang (53.1%)
+    25-34     : 1911 orang (29.6%)
+    35-44     :  769 orang (11.9%)
+    45-54     :  299 orang (4.6%)
+    ≥55     :   53 orang (0.8%)
+
+
+2.2 STATISTIK DESKRIPTIF SKOR PER ASPEK
+-------------------------------------------------------------------------------- 
+
+
+2.3 REFERENSI VISUALISASI
+-------------------------------------------------------------------------------- 
+
+Untuk eksplorasi visual karakteristik sampel, lihat:
+
+• Profil Skor:       01_Profile_MeanScores_Enhanced.png
+• Distribusi:        03_Distribution_With_Normal_Curve.png
+• Violin Plot:       04_Violin_Plot_Enhanced.png
+• Box Plot:          12_BoxPlot_All_Aspects.png
+• Heatmap:           02_Heatmap_Hierarchical_Clustering.png
+• Radar Chart:       05_Radar_Chart_MultiLayer.png
+• Percentile:        14_Percentile_Profiles.png
+• Dashboard:         15_Dashboard_Summary.png
+
+================================================================================ 
+
+
+
+
+================================================================================ 
+BAB III: DESKRIPSI INSTRUMEN EPPS 
+================================================================================ 
+
+3.1 15 ASPEK KEPRIBADIAN YANG DIUKUR
+-------------------------------------------------------------------------------- 
+
+Edwards Personal Preference Schedule (EPPS) mengukur 15 aspek kepribadian
+berdasarkan teori kebutuhan Murray. Berikut adalah deskripsi lengkap:
+
+ 1. Achievement (ACH)
+    Dorongan untuk mencapai prestasi, menyelesaikan tugas sulit, dan mengungguli orang lain
+
+ 2. Deference (DEF)
+    Kecenderungan untuk mengikuti saran orang lain, menerima kepemimpinan, dan menghormati otoritas
+
+ 3. Order (ORD)
+    Kebutuhan akan keteraturan, organisasi, dan struktur dalam kehidupan sehari-hari
+
+ 4. Exhibition (EXH)
+    Keinginan untuk menjadi pusat perhatian, menceritakan hal lucu, dan menghibur orang lain
+
+ 5. Autonomy (AUT)
+    Kebutuhan akan kebebasan, independensi, dan melakukan sesuatu dengan cara sendiri
+
+ 6. Affiliation (AFF)
+    Keinginan untuk dekat dengan orang lain, membentuk persahabatan, dan berpartisipasi dalam kelompok
+
+ 7. Intraception (INT)
+    Kemampuan memahami perasaan dan motivasi orang lain, menganalisis perilaku
+
+ 8. Succorance (SUC)
+    Kebutuhan untuk menerima dukungan, bantuan, dan perhatian dari orang lain
+
+ 9. Dominance (DOM)
+    Dorongan untuk mengontrol, memimpin, dan mempengaruhi orang lain
+
+10. Abasement (ABA)
+    Kecenderungan untuk merasa bersalah, menerima kritik, dan menempatkan diri di bawah orang lain
+
+11. Nurturance (NUR)
+    Dorongan untuk membantu, merawat, dan menunjukkan simpati kepada orang lain
+
+12. Change (CHG)
+    Kebutuhan akan variasi, pengalaman baru, dan perubahan dalam rutinitas
+
+13. Endurance (END)
+    Kegigihan dalam menyelesaikan tugas, ketekunan menghadapi kesulitan
+
+14. Heterosexuality (HET)
+    Ketertarikan sosial terhadap lawan jenis, membentuk hubungan romantis
+
+15. Aggression (AGG)
+    Dorongan untuk mengkritik, menyerang secara verbal, dan mengekspresikan kemarahan
+
+
+3.2 STRUKTUR ITEM DAN FORMAT FORCED-CHOICE
+-------------------------------------------------------------------------------- 
+
+KARAKTERISTIK INSTRUMEN:
+
+• Total Item        : 420 item
+• Format            : Forced-choice pairs
+• Item per Aspek    : 28-28 item (bervariasi)
+• Skala Response    : Binary/multiple choice
+
+IMPLIKASI FORMAT FORCED-CHOICE:
+
+1. IPSATIVITY PROBLEM
+   • Skor antar aspek saling bergantung (sum to constant)
+   • Korelasi negatif artifisial antar aspek
+   • Tidak bisa membandingkan absolute level antar individu
+   • SOLUSI: Thurstonian IRT (lihat BAB VII)
+
+2. KEUNTUNGAN FORMAT INI:
+   • Mengurangi social desirability bias
+   • Forced ranking reveals true preferences
+   • Lebih sulit untuk 'fake good'
+
+================================================================================ 
+
+
+
+
+================================================================================ 
+BAB IV: ANALISIS RELIABILITAS 
+================================================================================ 
+
+4.1 HASIL ANALISIS RELIABILITAS
+-------------------------------------------------------------------------------- 
+
+Tabel 4.1: Koefisien Reliabilitas per Aspek
+
+Aspek                            Alpha        Omega    Interpretasi
+-------------------------------------------------------------------------------- 
+Achievement                         NA        0.598    Poor (Buruk)
+Deference                           NA        0.490    Poor (Buruk)
+Order                               NA        0.753 Acceptable (Dapat Diterima)
+Exhibition                          NA        0.511    Poor (Buruk)
+Autonomy                            NA        0.604 Questionable (Dipertanyakan)
+Affiliation                         NA        0.571    Poor (Buruk)
+Intraception                        NA        0.590    Poor (Buruk)
+Succorance                          NA        0.739 Acceptable (Dapat Diterima)
+Dominance                           NA        0.700 Acceptable (Dapat Diterima)
+Abasement                           NA        0.644 Questionable (Dipertanyakan)
+Nurturance                          NA        0.664 Questionable (Dipertanyakan)
+Change                              NA        0.603 Questionable (Dipertanyakan)
+Endurance                           NA        0.712 Acceptable (Dapat Diterima)
+Heterosexuality                     NA        0.848     Good (Baik)
+Aggression                          NA        0.748 Acceptable (Dapat Diterima)
+
+
+4.2 INTERPRETASI DAN IMPLIKASI
+-------------------------------------------------------------------------------- 
+
+RINGKASAN STATISTIK:
+
+• Mean Omega        : 0.652
+• Median Omega      : 0.644
+• Range Omega       : 0.490 - 0.848
+
+KLASIFIKASI RELIABILITAS:
+
+• Excellent (≥0.90)     : 0 aspek (0.0%)
+• Good (0.80-0.89)      : 1 aspek (6.7%)
+• Acceptable (0.70-0.79): 5 aspek (33.3%)
+• Questionable (<0.70)  : 9 aspek (60.0%)
+
+ASPEK YANG MEMERLUKAN PERHATIAN:
+
+• Achievement (Omega = 0.598)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Deference (Omega = 0.490)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Exhibition (Omega = 0.511)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Autonomy (Omega = 0.604)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Affiliation (Omega = 0.571)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Intraception (Omega = 0.590)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Abasement (Omega = 0.644)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Nurturance (Omega = 0.664)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+• Change (Omega = 0.603)
+  Rekomendasi: Revisi item, tambah item, atau review construct
+
+
+4.3 PERBANDINGAN CRONBACH'S ALPHA VS McDONALD'S OMEGA
+-------------------------------------------------------------------------------- 
+
+McDonald's Omega umumnya lebih robust dibanding Cronbach's Alpha karena:
+
+• Tidak mengasumsikan tau-equivalence (equal factor loadings)
+• Lebih akurat untuk data yang tidak perfectly parallel
+• Memberikan estimasi reliabilitas yang lebih realistic
+
+
+✗ ERROR: Pembuatan Laporan Psikometrik 
+  Pesan error: no complete element pairs 
+
+==============================================================================
+                          RINGKASAN EKSEKUSI
+==============================================================================
+
+Total script dijalankan    : 14 
+Berhasil                   : 12 
+Gagal                      : 2 
+Total waktu eksekusi       : 78.34 menit
+
+Status per script:
+  setup: ✓ SUKSES
+  deskriptif: ✓ SUKSES
+  irt_2pl: ✓ SUKSES
+  irt_3pl: ✓ SUKSES
+  mirt: ✓ SUKSES
+  tirt: ✓ SUKSES
+  grm: ✓ SUKSES
+  network: ✓ SUKSES
+  network_advanced: ✓ SUKSES
+  network_comparative: ✓ SUKSES
+  network_interactive: ✓ SUKSES
+  norma: ✓ SUKSES
+  viz: ✗ GAGAL
+  laporan: ✗ GAGAL
+
+==============================================================================
+                          OUTPUT FILES
+==============================================================================
+
+Folder output/tables:
+  Total tabel CSV: 49 file
+
+Folder output/plots:
+  Total visualisasi: 118 file
+
+Folder output/models:
+  Total model tersimpan: 30 file
+
+Laporan utama:
+  ✓ LAPORAN_PSIKOMETRIK_EPPS.txt
+
+==============================================================================
+                          SELESAI
+==============================================================================
+
+Semua hasil analisis tersimpan di folder 'output/'
+Silakan baca file LAPORAN_PSIKOMETRIK_EPPS.txt untuk ringkasan lengkap.
+
+==============================================================================
+PANDUAN MENJALANKAN ANALISIS:
+==============================================================================
+
+OPSI 1 - Jalankan semua analisis sekaligus:
+  source("MASTER_RUN_ALL.R")
+
+OPSI 2 - Jalankan script individual bertahap:
+  source("01_Setup_Data.R")
+  source("02_Deskriptif_CTT.R")
+  source("03_IRT_2PL.R")
+  ... dan seterusnya
+
+OPSI 3 - Jalankan analisis tertentu saja:
+  Misalnya hanya Network Analysis (semua):
+  load("output/data_processed.RData")
+  source("08_Network_Analysis.R")
+  source("08B_Advanced_Network.R")
+  source("08C_Comparative_Network.R")
+  source("08D_Interactive_Network.R")
+
+==============================================================================
+
