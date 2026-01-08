@@ -34,22 +34,23 @@ CONFIG_MODELS_DIR <- "output/models"
 # ================================================================================
 
 # Aspect codes and labels
+# IMPORTANT: Keys must match the format in data columns (UPPERCASE)
 CONFIG_ASPECTS <- c(
-  "Ach" = "Achievement",
-  "Def" = "Deference",
-  "Ord" = "Order",
-  "Exh" = "Exhibition",
-  "Aut" = "Autonomy",
-  "Aff" = "Affiliation",
-  "Int" = "Intraception",
-  "Suc" = "Succorance",
-  "Dom" = "Dominance",
-  "Aba" = "Abasement",
-  "Nur" = "Nurturance",
-  "Chg" = "Change",
-  "End" = "Endurance",
-  "Het" = "Heterosexuality",
-  "Agg" = "Aggression"
+  "ACH" = "Achievement",
+  "DEF" = "Deference",
+  "ORD" = "Order",
+  "EXH" = "Exhibition",
+  "AUT" = "Autonomy",
+  "AFF" = "Affiliation",
+  "INT" = "Intraception",
+  "SUC" = "Succorance",
+  "DOM" = "Dominance",
+  "ABA" = "Abasement",
+  "NUR" = "Nurturance",
+  "CHG" = "Change",
+  "END" = "Endurance",
+  "HET" = "Heterosexuality",
+  "AGG" = "Aggression"
 )
 
 # Get aspect codes only
