@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Laporan Analisis Psikometrik EPPS - PT. Nirmala Satya Development">
+    <title>Laporan Analisis EPPS | Nirmala Satya Development</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gradient-primary fixed-top shadow-lg">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold" href="#home">
+                <i class="bi bi-graph-up-arrow me-2"></i>
+                EPPS Analysis Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home"><i class="bi bi-house-door me-1"></i> Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview"><i class="bi bi-speedometer2 me-1"></i> Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#demographics"><i class="bi bi-people me-1"></i> Demografi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reliability"><i class="bi bi-shield-check me-1"></i> Reliabilitas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#irt"><i class="bi bi-graph-up me-1"></i> IRT Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#network"><i class="bi bi-diagram-3 me-1"></i> Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#visualizations"><i class="bi bi-images me-1"></i> Visualisasi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-8 mx-auto text-center text-white" data-aos="fade-up">
+                    <h1 class="display-3 fw-bold mb-4">
+                        Laporan Analisis Psikometrik
+                    </h1>
+                    <h2 class="display-6 mb-4">
+                        Edwards Personal Preference Schedule (EPPS)
+                    </h2>
+                    <div class="divider mx-auto my-4"></div>
+                    <p class="lead mb-4">
+                        <strong>PT. Nirmala Satya Development</strong>
+                    </p>
+                    <p class="mb-4">
+                        Konsultan: PT. Data Riset Nusantara (Darinusa)<br>
+                        Tanggal: Januari 2026 | Versi 2.0
+                    </p>
+                    <div class="d-flex gap-3 justify-content-center flex-wrap">
+                        <a href="#overview" class="btn btn-light btn-lg px-5 rounded-pill shadow-lg">
+                            <i class="bi bi-arrow-down-circle me-2"></i> Mulai Eksplorasi
+                        </a>
+                        <a href="output/LAPORAN_ANALISIS_PSIKOMETRIK_EPPS.txt" class="btn btn-outline-light btn-lg px-5 rounded-pill" download>
+                            <i class="bi bi-download me-2"></i> Download Laporan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section id="overview" class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="stat-card card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-box mb-3 bg-primary">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <h3 class="display-4 fw-bold text-primary mb-2" id="stat-respondents">6,464</h3>
+                            <p class="text-muted mb-0">Total Responden</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="stat-card card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-box mb-3 bg-success">
+                                <i class="bi bi-card-checklist"></i>
+                            </div>
+                            <h3 class="display-4 fw-bold text-success mb-2">420</h3>
+                            <p class="text-muted mb-0">Total Item</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat-card card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-box mb-3 bg-warning">
+                                <i class="bi bi-bookmark-star-fill"></i>
+                            </div>
+                            <h3 class="display-4 fw-bold text-warning mb-2">15</h3>
+                            <p class="text-muted mb-0">Aspek Kepribadian</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="stat-card card border-0 shadow-sm h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="icon-box mb-3 bg-info">
+                                <i class="bi bi-graph-up-arrow"></i>
+                            </div>
+                            <h3 class="display-4 fw-bold text-info mb-2">0.67</h3>
+                            <p class="text-muted mb-0">Rata-rata Reliabilitas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15 EPPS Aspects -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">15 Aspek Kepribadian EPPS</h2>
+                    <p class="lead text-muted">Edwards Personal Preference Schedule mengukur 15 dimensi kepribadian berdasarkan teori kebutuhan Murray</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-primary text-white me-3">
+                                    <i class="bi bi-trophy-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Achievement (ACH)</h5>
+                            </div>
+                            <p class="text-muted small">Dorongan untuk mencapai tugas-tugas sulit dan menantang</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-success text-white me-3">
+                                    <i class="bi bi-person-check-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Deference (DEF)</h5>
+                            </div>
+                            <p class="text-muted small">Kecenderungan untuk mengikuti instruksi dan arahan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-info text-white me-3">
+                                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Order (ORD)</h5>
+                            </div>
+                            <p class="text-muted small">Kebutuhan akan keteraturan dan organisasi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-warning text-white me-3">
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Exhibition (EXH)</h5>
+                            </div>
+                            <p class="text-muted small">Keinginan menjadi pusat perhatian</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-danger text-white me-3">
+                                    <i class="bi bi-compass-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Autonomy (AUT)</h5>
+                            </div>
+                            <p class="text-muted small">Kebutuhan akan kemandirian dan kebebasan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-purple text-white me-3">
+                                    <i class="bi bi-heart-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Affiliation (AFF)</h5>
+                            </div>
+                            <p class="text-muted small">Kebutuhan akan persahabatan dan hubungan sosial</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-teal text-white me-3">
+                                    <i class="bi bi-emoji-smile-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Intraception (INT)</h5>
+                            </div>
+                            <p class="text-muted small">Empati psikologis dan pemahaman orang lain</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="450">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-orange text-white me-3">
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Succorance (SUC)</h5>
+                            </div>
+                            <p class="text-muted small">Keinginan untuk didukung dan dilindungi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-indigo text-white me-3">
+                                    <i class="bi bi-lightning-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Dominance (DOM)</h5>
+                            </div>
+                            <p class="text-muted small">Kebutuhan untuk mengontrol dan memimpin</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="550">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-secondary text-white me-3">
+                                    <i class="bi bi-arrows-angle-contract"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Abasement (ABA)</h5>
+                            </div>
+                            <p class="text-muted small">Kecenderungan pada penerimaan pasif</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-pink text-white me-3">
+                                    <i class="bi bi-heart-pulse-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Nurturance (NUR)</h5>
+                            </div>
+                            <p class="text-muted small">Dorongan untuk membantu dan merawat orang lain</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="650">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-cyan text-white me-3">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Change (CHG)</h5>
+                            </div>
+                            <p class="text-muted small">Kebutuhan akan variasi dan perubahan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="700">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-lime text-white me-3">
+                                    <i class="bi bi-battery-full"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Endurance (END)</h5>
+                            </div>
+                            <p class="text-muted small">Ketekunan dan persistensi dalam tugas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="750">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-rose text-white me-3">
+                                    <i class="bi bi-person-hearts"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Heterosexuality (HET)</h5>
+                            </div>
+                            <p class="text-muted small">Ketertarikan sosial pada lawan jenis</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="800">
+                    <div class="aspect-card card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="aspect-icon bg-dark text-white me-3">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">Aggression (AGG)</h5>
+                            </div>
+                            <p class="text-muted small">Dorongan untuk mengkritik dan bersikap tegas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demographics Section -->
+    <section id="demographics" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Profil Demografis Responden</h2>
+                    <p class="lead text-muted">Karakteristik sampel penelitian berdasarkan jenis kelamin dan pendidikan</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4"><i class="bi bi-gender-ambiguous me-2 text-primary"></i>Distribusi Jenis Kelamin</h4>
+                            <canvas id="genderChart" height="250"></canvas>
+                            <div class="mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span><i class="bi bi-circle-fill text-primary me-2"></i>Laki-laki</span>
+                                    <strong>3,891 (60.19%)</strong>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span><i class="bi bi-circle-fill text-danger me-2"></i>Perempuan</span>
+                                    <strong>2,573 (39.81%)</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4"><i class="bi bi-mortarboard me-2 text-success"></i>Distribusi Pendidikan</h4>
+                            <canvas id="educationChart" height="250"></canvas>
+                            <div id="educationLegend" class="mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reliability Analysis Section -->
+    <section id="reliability" class="py-5">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Analisis Reliabilitas</h2>
+                    <p class="lead text-muted">McDonald's Omega untuk setiap aspek kepribadian EPPS</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <canvas id="reliabilityChart" height="100"></canvas>
+                            <div class="mt-4">
+                                <div class="alert alert-info">
+                                    <h6 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i>Interpretasi Reliabilitas:</h6>
+                                    <ul class="mb-0">
+                                        <li><strong>&gt; 0.90:</strong> Excellent (Sangat Baik)</li>
+                                        <li><strong>0.80-0.89:</strong> Good (Baik)</li>
+                                        <li><strong>0.70-0.79:</strong> Acceptable (Dapat Diterima)</li>
+                                        <li><strong>&lt; 0.70:</strong> Questionable (Perlu Ditinjau)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4"><i class="bi bi-table me-2 text-primary"></i>Tabel Reliabilitas Detail</h4>
+                            <div class="table-responsive">
+                                <table id="reliabilityTable" class="table table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>Aspek</th>
+                                            <th>Jumlah Item</th>
+                                            <th>McDonald's Omega</th>
+                                            <th>Interpretasi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reliabilityTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Descriptive Statistics Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Statistik Deskriptif Aspek</h2>
+                    <p class="lead text-muted">Rata-rata skor dan distribusi untuk setiap aspek kepribadian</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <canvas id="meanScoresChart" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4"><i class="bi bi-bar-chart-line me-2 text-success"></i>Statistik Detail per Aspek</h4>
+                            <div class="table-responsive">
+                                <table id="descriptiveTable" class="table table-hover">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th>Aspek</th>
+                                            <th>N</th>
+                                            <th>Mean</th>
+                                            <th>SD</th>
+                                            <th>Min</th>
+                                            <th>Max</th>
+                                            <th>Median</th>
+                                            <th>Skewness</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="descriptiveTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IRT Analysis Section -->
+    <section id="irt" class="py-5">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Analisis Item Response Theory (IRT)</h2>
+                    <p class="lead text-muted">Parameter item menggunakan model 2PL dan 3PL</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">
+                                <i class="bi bi-graph-up me-2 text-primary"></i>
+                                Model 2PL (Two-Parameter Logistic)
+                            </h4>
+                            <p class="text-muted">Model IRT yang mempertimbangkan diskriminasi dan kesulitan item</p>
+                            <div class="mt-4">
+                                <img src="assets/plots/2PL_ICC_ACH.png" class="img-fluid rounded shadow-sm" alt="2PL ICC" onerror="this.style.display='none'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-3">
+                                <i class="bi bi-graph-up-arrow me-2 text-success"></i>
+                                Model 3PL (Three-Parameter Logistic)
+                            </h4>
+                            <p class="text-muted">Model IRT dengan parameter tambahan untuk menangani guessing</p>
+                            <div class="mt-4">
+                                <img src="assets/plots/3PL_ICC_ACH.png" class="img-fluid rounded shadow-sm" alt="3PL ICC" onerror="this.style.display='none'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4">
+                                <i class="bi bi-info-circle me-2 text-info"></i>
+                                Penjelasan Parameter IRT
+                            </h4>
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="p-3 bg-light rounded">
+                                        <h6 class="fw-bold text-primary">Discrimination (a)</h6>
+                                        <p class="small mb-0">Seberapa baik item membedakan responden dengan kemampuan berbeda. Nilai lebih tinggi = diskriminasi lebih baik.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 bg-light rounded">
+                                        <h6 class="fw-bold text-success">Difficulty (b)</h6>
+                                        <p class="small mb-0">Tingkat kesulitan item. Nilai lebih tinggi = item lebih sulit.</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 bg-light rounded">
+                                        <h6 class="fw-bold text-warning">Guessing (c)</h6>
+                                        <p class="small mb-0">Probabilitas menjawab benar dengan menebak (hanya pada model 3PL).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Analysis Section -->
+    <section id="network" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Analisis Network</h2>
+                    <p class="lead text-muted">Struktur hubungan antar aspek kepribadian menggunakan Gaussian Graphical Model</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-8 mx-auto" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4">
+                                <i class="bi bi-diagram-3 me-2 text-primary"></i>
+                                Network Visualization
+                            </h4>
+                            <div class="text-center">
+                                <img src="assets/plots/Network_Circle_Layout.png" class="img-fluid rounded shadow-sm" alt="Network Analysis" onerror="this.style.display='none'">
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-muted">
+                                    <strong>Interpretasi:</strong> Garis biru menunjukkan korelasi positif, garis merah menunjukkan korelasi negatif.
+                                    Ketebalan garis menunjukkan kekuatan hubungan. Node yang lebih besar menunjukkan aspek dengan centrality lebih tinggi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-stars me-2 text-warning"></i>
+                                Centrality Measures
+                            </h5>
+                            <div class="text-center">
+                                <img src="assets/plots/Network_Expected_Influence.png" class="img-fluid rounded shadow-sm" alt="Centrality" onerror="this.style.display='none'" style="max-height: 300px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-circle-square me-2 text-success"></i>
+                                Bridge Centrality
+                            </h5>
+                            <div class="text-center">
+                                <img src="assets/plots/Network_Bridge_Centrality.png" class="img-fluid rounded shadow-sm" alt="Bridge Centrality" onerror="this.style.display='none'" style="max-height: 300px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualizations Gallery -->
+    <section id="visualizations" class="py-5">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Galeri Visualisasi</h2>
+                    <p class="lead text-muted">Koleksi lengkap visualisasi dari analisis psikometrik EPPS</p>
+                </div>
+            </div>
+
+            <!-- Tabs for different visualization categories -->
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-12">
+                    <ul class="nav nav-pills mb-4 justify-content-center" id="vizTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="correlation-tab" data-bs-toggle="pill" data-bs-target="#correlation" type="button" role="tab">
+                                <i class="bi bi-grid-3x3 me-2"></i>Korelasi
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="distribution-tab" data-bs-toggle="pill" data-bs-target="#distribution" type="button" role="tab">
+                                <i class="bi bi-bar-chart me-2"></i>Distribusi
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="network-viz-tab" data-bs-toggle="pill" data-bs-target="#network-viz" type="button" role="tab">
+                                <i class="bi bi-diagram-3 me-2"></i>Network
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="irt-viz-tab" data-bs-toggle="pill" data-bs-target="#irt-viz" type="button" role="tab">
+                                <i class="bi bi-graph-up me-2"></i>IRT
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="vizTabsContent">
+                        <!-- Correlation Visualizations -->
+                        <div class="tab-pane fade show active" id="correlation" role="tabpanel">
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Korelasi Aspek</h5>
+                                            <img src="assets/plots/01_Korelasi_Aspek.png" class="img-fluid rounded" alt="Correlation" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Distribusi Skor Aspek</h5>
+                                            <img src="assets/plots/02_Distribusi_Skor_Aspek.png" class="img-fluid rounded" alt="Distribution" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Distribution Visualizations -->
+                        <div class="tab-pane fade" id="distribution" role="tabpanel">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Distribusi Skor per Aspek</h5>
+                                            <img src="assets/plots/02_Distribusi_Skor_Aspek.png" class="img-fluid rounded" alt="Aspect Distribution" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network Visualizations -->
+                        <div class="tab-pane fade" id="network-viz" role="tabpanel">
+                            <div class="row g-4">
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Spring Layout</h5>
+                                            <img src="assets/plots/Network_Spring_Layout.png" class="img-fluid rounded" alt="Spring Layout" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Positive Connections</h5>
+                                            <img src="assets/plots/Network_Positive_Only.png" class="img-fluid rounded" alt="Positive" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Negative Connections</h5>
+                                            <img src="assets/plots/Network_Negative_Only.png" class="img-fluid rounded" alt="Negative" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title">Network with Predictability</h5>
+                                            <img src="assets/plots/Network_With_Predictability.png" class="img-fluid rounded" alt="Predictability" onerror="this.style.display='none'">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IRT Visualizations -->
+                        <div class="tab-pane fade" id="irt-viz" role="tabpanel">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="card border-0 shadow-sm">
+                                        <div class="card-body p-4">
+                                            <h5 class="card-title mb-4">Item Characteristic Curves (ICC) - Sampel Aspek</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <img src="assets/plots/2PL_ICC_ACH.png" class="img-fluid rounded" alt="ICC ACH" onerror="this.style.display='none'">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img src="assets/plots/2PL_ICC_DOM.png" class="img-fluid rounded" alt="ICC DOM" onerror="this.style.display='none'">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5 bg-dark text-white">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3"><i class="bi bi-building me-2"></i>PT. Nirmala Satya Development</h5>
+                    <p class="text-white-50">
+                        Laporan ini disusun untuk keperluan analisis psikometrik instrumen EPPS sebagai bagian dari pengembangan sistem assessment.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3"><i class="bi bi-briefcase me-2"></i>Konsultan</h5>
+                    <p class="text-white-50">
+                        <strong>PT. Data Riset Nusantara (Darinusa)</strong><br>
+                        Tim Konsultan Psikometri<br>
+                        Januari 2026
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3"><i class="bi bi-info-circle me-2"></i>Informasi</h5>
+                    <p class="text-white-50">
+                        Versi: 2.0<br>
+                        Tanggal: Januari 2026<br>
+                        Status: <span class="badge bg-success">Confidential</span>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4 bg-white opacity-25">
+            <div class="text-center text-white-50">
+                <p class="mb-0">
+                    &copy; 2026 PT. Data Riset Nusantara & PT. Nirmala Satya Development.
+                    <br class="d-md-none">
+                    <span class="text-danger">CONFIDENTIAL - DO NOT DISTRIBUTE</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="btn btn-primary rounded-circle shadow-lg" onclick="scrollToTop()">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+    <!-- DataTables -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
