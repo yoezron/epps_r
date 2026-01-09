@@ -50,6 +50,57 @@ const EMBEDDED_DATA = {
         { Aspek: "Endurance", n: "6464", mean: "18.35", sd: "4.25", min: "0", max: "28", median: "18", skew: "-0.24" },
         { Aspek: "Heterosexuality", n: "6464", mean: "5.20", sd: "4.53", min: "0", max: "26", median: "4", skew: "1.02" },
         { Aspek: "Aggression", n: "6464", mean: "9.78", sd: "4.33", min: "0", max: "26", median: "9", skew: "0.35" }
+    ],
+    percentile: [
+        { Aspek: "Achievement", P10: "12", P25: "14", P50: "16", P75: "19", P90: "21" },
+        { Aspek: "Deference", P10: "10", P25: "12", P50: "14", P75: "17", P90: "19" },
+        { Aspek: "Order", P10: "11", P25: "14", P50: "18", P75: "21", P90: "23" },
+        { Aspek: "Exhibition", P10: "9", P25: "11", P50: "13", P75: "15", P90: "17" },
+        { Aspek: "Autonomy", P10: "6", P25: "8", P50: "11", P75: "13", P90: "15" },
+        { Aspek: "Affiliation", P10: "8", P25: "11", P50: "13", P75: "16", P90: "18" },
+        { Aspek: "Intraception", P10: "12", P25: "15", P50: "17", P75: "20", P90: "22" },
+        { Aspek: "Succorance", P10: "6", P25: "8", P50: "11", P75: "15", P90: "17" },
+        { Aspek: "Dominance", P10: "10", P25: "12", P50: "14", P75: "17", P90: "21" },
+        { Aspek: "Abasement", P10: "12", P25: "14", P50: "17", P75: "20", P90: "22" },
+        { Aspek: "Nurturance", P10: "11", P25: "14", P50: "16", P75: "19", P90: "22" },
+        { Aspek: "Change", P10: "10", P25: "12", P50: "15", P75: "17", P90: "20" },
+        { Aspek: "Endurance", P10: "13", P25: "15", P50: "18", P75: "21", P90: "24" },
+        { Aspek: "Heterosexuality", P10: "0", P25: "2", P50: "4", P75: "8", P90: "12" },
+        { Aspek: "Aggression", P10: "4", P25: "6", P50: "9", P75: "13", P90: "16" }
+    ],
+    tscore: [
+        { Aspek: "Achievement", Mean: "16.47", SD: "3.38", Min: "4", Max: "28" },
+        { Aspek: "Deference", Mean: "14.46", SD: "3.36", Min: "2", Max: "26" },
+        { Aspek: "Order", Mean: "17.39", SD: "4.57", Min: "1", Max: "28" },
+        { Aspek: "Exhibition", Mean: "13.12", SD: "3.28", Min: "1", Max: "26" },
+        { Aspek: "Autonomy", Mean: "10.74", SD: "3.41", Min: "0", Max: "23" },
+        { Aspek: "Affiliation", Mean: "13.14", SD: "3.65", Min: "1", Max: "26" },
+        { Aspek: "Intraception", Mean: "17.07", SD: "3.68", Min: "3", Max: "27" },
+        { Aspek: "Succorance", Mean: "11.34", SD: "4.47", Min: "0", Max: "28" },
+        { Aspek: "Dominance", Mean: "14.72", SD: "4.25", Min: "2", Max: "28" },
+        { Aspek: "Abasement", Mean: "16.90", SD: "3.75", Min: "1", Max: "28" },
+        { Aspek: "Nurturance", Mean: "16.36", SD: "4.14", Min: "3", Max: "28" },
+        { Aspek: "Change", Mean: "14.95", SD: "3.95", Min: "2", Max: "28" },
+        { Aspek: "Endurance", Mean: "18.35", SD: "4.25", Min: "0", Max: "28" },
+        { Aspek: "Heterosexuality", Mean: "5.20", SD: "4.53", Min: "0", Max: "26" },
+        { Aspek: "Aggression", Mean: "9.78", SD: "4.33", Min: "0", Max: "26" }
+    ],
+    categoryDist: [
+        { Aspek: "Achievement", SangatTinggi: "113", Tinggi: "1132", Ratarata: "3973", Rendah: "1137", SangatRendah: "109" },
+        { Aspek: "Deference", SangatTinggi: "95", Tinggi: "1094", Ratarata: "4058", Rendah: "1073", SangatRendah: "144" },
+        { Aspek: "Order", SangatTinggi: "59", Tinggi: "1183", Ratarata: "4293", Rendah: "711", SangatRendah: "218" },
+        { Aspek: "Exhibition", SangatTinggi: "178", Tinggi: "756", Ratarata: "4662", Rendah: "758", SangatRendah: "110" },
+        { Aspek: "Autonomy", SangatTinggi: "181", Tinggi: "709", Ratarata: "4450", Rendah: "1061", SangatRendah: "63" },
+        { Aspek: "Affiliation", SangatTinggi: "153", Tinggi: "1000", Ratarata: "4305", Rendah: "892", SangatRendah: "114" },
+        { Aspek: "Intraception", SangatTinggi: "138", Tinggi: "1020", Ratarata: "4225", Rendah: "963", SangatRendah: "118" },
+        { Aspek: "Succorance", SangatTinggi: "145", Tinggi: "1046", Ratarata: "4273", Rendah: "939", SangatRendah: "61" },
+        { Aspek: "Dominance", SangatTinggi: "182", Tinggi: "1010", Ratarata: "4274", Rendah: "891", SangatRendah: "107" },
+        { Aspek: "Abasement", SangatTinggi: "90", Tinggi: "1020", Ratarata: "4229", Rendah: "925", SangatRendah: "200" },
+        { Aspek: "Nurturance", SangatTinggi: "147", Tinggi: "906", Ratarata: "4254", Rendah: "979", SangatRendah: "178" },
+        { Aspek: "Change", SangatTinggi: "219", Tinggi: "955", Ratarata: "4100", Rendah: "1020", SangatRendah: "170" },
+        { Aspek: "Endurance", SangatTinggi: "83", Tinggi: "1106", Ratarata: "4030", Rendah: "1098", SangatRendah: "147" },
+        { Aspek: "Heterosexuality", SangatTinggi: "271", Tinggi: "903", Ratarata: "4559", Rendah: "731", SangatRendah: "0" },
+        { Aspek: "Aggression", SangatTinggi: "196", Tinggi: "793", Ratarata: "4344", Rendah: "1083", SangatRendah: "48" }
     ]
 };
 
@@ -77,6 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadDemographicsData();
     loadReliabilityData();
     loadDescriptiveData();
+    loadNormaData();
     initSmoothScroll();
 
     console.log('✅ Dashboard initialized successfully');
@@ -746,6 +798,360 @@ function safeParseFloat(value, defaultValue = 0) {
 window.addEventListener('error', function(e) {
     console.error('Global error:', e.error);
 });
+
+// ============================================================================
+// LOAD NORMA DATA
+// ============================================================================
+async function loadNormaData() {
+    console.log('📊 Loading norma data...');
+
+    try {
+        const percentileResponse = await fetch('data/tables/20_Norma_Percentile.csv');
+        const percentileText = await percentileResponse.text();
+        const percentileData = parseCSV(percentileText);
+
+        const tscoreResponse = await fetch('data/tables/19_Norma_TScore.csv');
+        const tscoreText = await tscoreResponse.text();
+        const tscoreData = parseCSV(tscoreText);
+
+        const categoryResponse = await fetch('data/tables/31_Distribusi_Kategori.csv');
+        const categoryText = await categoryResponse.text();
+        const categoryData = parseCSV(categoryText);
+
+        createNormaDistributionChart(categoryData);
+        createPercentileBoxPlot(percentileData);
+        populatePercentileTable(percentileData);
+        populateTScoreStatsTable(tscoreData);
+        populateCategoryDistTable(categoryData);
+        createConversionSample();
+        console.log('✅ Norma data loaded from CSV');
+    } catch (error) {
+        console.warn('⚠️ Could not fetch CSV, using embedded data:', error.message);
+        createNormaDistributionChart(EMBEDDED_DATA.categoryDist);
+        createPercentileBoxPlot(EMBEDDED_DATA.percentile);
+        populatePercentileTable(EMBEDDED_DATA.percentile);
+        populateTScoreStatsTable(EMBEDDED_DATA.tscore);
+        populateCategoryDistTable(EMBEDDED_DATA.categoryDist);
+        createConversionSample();
+        console.log('✅ Norma data loaded from embedded source');
+    }
+}
+
+// ============================================================================
+// CREATE NORMA DISTRIBUTION CHART (Stacked Bar)
+// ============================================================================
+function createNormaDistributionChart(data) {
+    const ctx = document.getElementById('normaDistributionChart');
+    if (!ctx) {
+        console.error('❌ Norma distribution chart canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating norma distribution chart');
+
+    const labels = data.map(row => row.Aspek);
+    const sangatTinggi = data.map(row => parseInt(row.SangatTinggi));
+    const tinggi = data.map(row => parseInt(row.Tinggi));
+    const ratarata = data.map(row => parseInt(row.Ratarata));
+    const rendah = data.map(row => parseInt(row.Rendah));
+    const sangatRendah = data.map(row => parseInt(row.SangatRendah));
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Sangat Rendah',
+                    data: sangatRendah,
+                    backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                    borderColor: 'rgba(239, 68, 68, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Rendah',
+                    data: rendah,
+                    backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                    borderColor: 'rgba(245, 158, 11, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Rata-rata',
+                    data: ratarata,
+                    backgroundColor: 'rgba(107, 114, 128, 0.8)',
+                    borderColor: 'rgba(107, 114, 128, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Tinggi',
+                    data: tinggi,
+                    backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                    borderColor: 'rgba(59, 130, 246, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Sangat Tinggi',
+                    data: sangatTinggi,
+                    backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                    borderColor: 'rgba(16, 185, 129, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            family: 'Inter'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            family: 'Inter',
+                            size: 11
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter'
+                        },
+                        padding: 15
+                    }
+                }
+            }
+        }
+    });
+
+    console.log('✅ Norma distribution chart created');
+}
+
+// ============================================================================
+// CREATE PERCENTILE BOX PLOT
+// ============================================================================
+function createPercentileBoxPlot(data) {
+    const ctx = document.getElementById('percentileBoxPlot');
+    if (!ctx) {
+        console.error('❌ Percentile box plot canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating percentile box plot');
+
+    const labels = data.map(row => row.Aspek);
+    const p10 = data.map(row => parseFloat(row.P10));
+    const p25 = data.map(row => parseFloat(row.P25));
+    const p50 = data.map(row => parseFloat(row.P50));
+    const p75 = data.map(row => parseFloat(row.P75));
+    const p90 = data.map(row => parseFloat(row.P90));
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'P10 (Base)',
+                    data: p10,
+                    backgroundColor: 'rgba(0, 0, 0, 0)',
+                    borderWidth: 0,
+                    stack: 'percentile'
+                },
+                {
+                    label: 'P10-P25',
+                    data: p25.map((val, i) => val - p10[i]),
+                    backgroundColor: 'rgba(239, 68, 68, 0.3)',
+                    borderWidth: 0,
+                    stack: 'percentile'
+                },
+                {
+                    label: 'P25-P50',
+                    data: p50.map((val, i) => val - p25[i]),
+                    backgroundColor: 'rgba(245, 158, 11, 0.5)',
+                    borderWidth: 0,
+                    stack: 'percentile'
+                },
+                {
+                    label: 'P50-P75',
+                    data: p75.map((val, i) => val - p50[i]),
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderWidth: 0,
+                    stack: 'percentile'
+                },
+                {
+                    label: 'P75-P90',
+                    data: p90.map((val, i) => val - p75[i]),
+                    backgroundColor: 'rgba(16, 185, 129, 0.3)',
+                    borderWidth: 0,
+                    stack: 'percentile'
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                x: {
+                    stacked: true,
+                    max: 28,
+                    ticks: {
+                        font: {
+                            family: 'Inter'
+                        }
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.05)'
+                    }
+                },
+                y: {
+                    stacked: true,
+                    ticks: {
+                        font: {
+                            family: 'Inter',
+                            size: 11
+                        }
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        font: {
+                            family: 'Inter'
+                        },
+                        padding: 10,
+                        filter: function(legendItem) {
+                            return legendItem.text !== 'P10 (Base)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    console.log('✅ Percentile box plot created');
+}
+
+// ============================================================================
+// POPULATE PERCENTILE TABLE
+// ============================================================================
+function populatePercentileTable(data) {
+    const tbody = document.getElementById('percentileTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    data.forEach(row => {
+        html += '<tr><td><strong>' + row.Aspek + '</strong></td><td>' + row.P10 + '</td><td>' + row.P25 + '</td><td class="table-info"><strong>' + row.P50 + '</strong></td><td>' + row.P75 + '</td><td>' + row.P90 + '</td></tr>';
+    });
+    tbody.innerHTML = html;
+    console.log('✅ Percentile table populated');
+}
+
+// ============================================================================
+// POPULATE T-SCORE STATISTICS TABLE
+// ============================================================================
+function populateTScoreStatsTable(data) {
+    const tbody = document.getElementById('tscoreStatsTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    data.forEach(row => {
+        const range = row.Min + ' - ' + row.Max;
+        html += '<tr><td><strong>' + row.Aspek + '</strong></td><td>' + parseFloat(row.Mean).toFixed(2) + '</td><td>' + parseFloat(row.SD).toFixed(2) + '</td><td>' + range + '</td></tr>';
+    });
+    tbody.innerHTML = html;
+    console.log('✅ T-Score stats table populated');
+}
+
+// ============================================================================
+// POPULATE CATEGORY DISTRIBUTION TABLE
+// ============================================================================
+function populateCategoryDistTable(data) {
+    const tbody = document.getElementById('categoryDistTableBody');
+    if (!tbody) return;
+
+    let html = '';
+    data.forEach(row => {
+        const total = parseInt(row.SangatTinggi) + parseInt(row.Tinggi) + parseInt(row.Ratarata) + parseInt(row.Rendah) + parseInt(row.SangatRendah);
+        const pctST = ((parseInt(row.SangatTinggi) / total) * 100).toFixed(1);
+        const pctT = ((parseInt(row.Tinggi) / total) * 100).toFixed(1);
+        const pctR = ((parseInt(row.Ratarata) / total) * 100).toFixed(1);
+        const pctRd = ((parseInt(row.Rendah) / total) * 100).toFixed(1);
+        const pctSR = ((parseInt(row.SangatRendah) / total) * 100).toFixed(1);
+
+        html += '<tr><td><strong>' + row.Aspek + '</strong></td>';
+        html += '<td>' + parseInt(row.SangatTinggi).toLocaleString() + ' <small class="text-muted">(' + pctST + '%)</small></td>';
+        html += '<td>' + parseInt(row.Tinggi).toLocaleString() + ' <small class="text-muted">(' + pctT + '%)</small></td>';
+        html += '<td>' + parseInt(row.Ratarata).toLocaleString() + ' <small class="text-muted">(' + pctR + '%)</small></td>';
+        html += '<td>' + parseInt(row.Rendah).toLocaleString() + ' <small class="text-muted">(' + pctRd + '%)</small></td>';
+        html += '<td>' + parseInt(row.SangatRendah).toLocaleString() + ' <small class="text-muted">(' + pctSR + '%)</small></td></tr>';
+    });
+    tbody.innerHTML = html;
+    console.log('✅ Category distribution table populated');
+}
+
+// ============================================================================
+// CREATE CONVERSION SAMPLE (Achievement as example)
+// ============================================================================
+function createConversionSample() {
+    const tbody = document.getElementById('conversionSampleBody');
+    if (!tbody) return;
+
+    const mean = 16.47;
+    const sd = 3.38;
+    const samples = [8, 10, 12, 14, 16, 18, 20, 22, 24, 26];
+
+    let html = '';
+    samples.forEach(rawScore => {
+        const tscore = 50 + 10 * ((rawScore - mean) / sd);
+        let interpretation = '';
+        let badgeClass = '';
+
+        if (tscore >= 70) {
+            interpretation = 'Sangat Tinggi';
+            badgeClass = 'bg-success';
+        } else if (tscore >= 60) {
+            interpretation = 'Tinggi';
+            badgeClass = 'bg-primary';
+        } else if (tscore >= 40) {
+            interpretation = 'Rata-rata';
+            badgeClass = 'bg-secondary';
+        } else if (tscore >= 30) {
+            interpretation = 'Rendah';
+            badgeClass = 'bg-warning';
+        } else {
+            interpretation = 'Sangat Rendah';
+            badgeClass = 'bg-danger';
+        }
+
+        html += '<tr><td><strong>' + rawScore + '</strong></td><td><strong>' + tscore.toFixed(1) + '</strong></td><td><span class="badge ' + badgeClass + '">' + interpretation + '</span></td></tr>';
+    });
+    tbody.innerHTML = html;
+    console.log('✅ Conversion sample table created');
+}
 
 // ============================================================================
 // CONSOLE WELCOME MESSAGE
