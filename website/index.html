@@ -53,6 +53,9 @@
                         <a class="nav-link" href="#reliability"><i class="bi bi-shield-check me-1"></i> Reliabilitas</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#norma"><i class="bi bi-calculator me-1"></i> Norma</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#irt"><i class="bi bi-graph-up me-1"></i> IRT Analysis</a>
                     </li>
                     <li class="nav-item">
@@ -494,6 +497,209 @@
                                     </thead>
                                     <tbody id="descriptiveTableBody"></tbody>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Norma & Scoring Section -->
+    <section id="norma" class="py-5 bg-light">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">Norma & Sistem Penyekoran</h2>
+                    <p class="lead text-muted">Standar interpretasi skor berdasarkan populasi normatif Indonesia</p>
+                </div>
+            </div>
+
+            <!-- Category Distribution -->
+            <div class="row mb-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4">
+                                <i class="bi bi-bar-chart-fill me-2 text-primary"></i>
+                                Distribusi Kategori Norma per Aspek
+                            </h4>
+                            <canvas id="normaDistributionChart" height="80"></canvas>
+                            <div class="mt-4">
+                                <div class="alert alert-info">
+                                    <h6 class="alert-heading"><i class="bi bi-info-circle-fill me-2"></i>Interpretasi Kategori:</h6>
+                                    <div class="row g-2 mt-2">
+                                        <div class="col-md-4">
+                                            <div class="p-2 bg-success bg-opacity-10 rounded">
+                                                <strong class="text-success">Sangat Tinggi:</strong> T-Score ≥ 70
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-2 bg-primary bg-opacity-10 rounded">
+                                                <strong class="text-primary">Tinggi:</strong> T-Score 60-69
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="p-2 bg-secondary bg-opacity-10 rounded">
+                                                <strong class="text-secondary">Rata-rata:</strong> T-Score 40-59
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="p-2 bg-warning bg-opacity-10 rounded">
+                                                <strong class="text-warning">Rendah:</strong> T-Score 30-39
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="p-2 bg-danger bg-opacity-10 rounded">
+                                                <strong class="text-danger">Sangat Rendah:</strong> T-Score < 30
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Percentile Box Plot -->
+            <div class="row mb-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h4 class="card-title mb-4">
+                                <i class="bi bi-box-seam me-2 text-success"></i>
+                                Distribusi Percentile per Aspek
+                            </h4>
+                            <canvas id="percentileBoxPlot" height="100"></canvas>
+                            <div class="mt-3">
+                                <p class="text-muted small mb-0">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Visualisasi menampilkan distribusi percentile (P10, P25, P50/Median, P75, P90) untuk setiap aspek kepribadian.
+                                    Semakin lebar box, semakin besar variasi skor dalam populasi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables Row -->
+            <div class="row g-4">
+                <!-- Percentile Table -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-percent me-2 text-info"></i>
+                                Tabel Norma Percentile
+                            </h5>
+                            <div class="table-responsive">
+                                <table id="percentileTable" class="table table-hover table-sm">
+                                    <thead class="table-info">
+                                        <tr>
+                                            <th>Aspek</th>
+                                            <th>P10</th>
+                                            <th>P25</th>
+                                            <th>P50</th>
+                                            <th>P75</th>
+                                            <th>P90</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="percentileTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- T-Score Statistics Table -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-calculator-fill me-2 text-warning"></i>
+                                Statistik T-Score per Aspek
+                            </h5>
+                            <div class="table-responsive">
+                                <table id="tscoreStatsTable" class="table table-hover table-sm">
+                                    <thead class="table-warning">
+                                        <tr>
+                                            <th>Aspek</th>
+                                            <th>Mean</th>
+                                            <th>SD</th>
+                                            <th>Range</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tscoreStatsTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Distribution Table -->
+            <div class="row mt-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-4">
+                                <i class="bi bi-pie-chart-fill me-2 text-success"></i>
+                                Distribusi Frekuensi Kategori Norma
+                            </h5>
+                            <div class="table-responsive">
+                                <table id="categoryDistTable" class="table table-hover">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th>Aspek</th>
+                                            <th><span class="badge bg-success">Sangat Tinggi</span></th>
+                                            <th><span class="badge bg-primary">Tinggi</span></th>
+                                            <th><span class="badge bg-secondary">Rata-rata</span></th>
+                                            <th><span class="badge bg-warning">Rendah</span></th>
+                                            <th><span class="badge bg-danger">Sangat Rendah</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoryDistTableBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- T-Score Conversion Sample -->
+            <div class="row mt-4">
+                <div class="col-12" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-3">
+                                <i class="bi bi-arrow-left-right me-2 text-primary"></i>
+                                Contoh Konversi Raw Score ke T-Score
+                            </h5>
+                            <p class="text-muted mb-4">Tabel konversi untuk aspek Achievement (sebagai contoh):</p>
+                            <div class="row">
+                                <div class="col-lg-8 mx-auto">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-striped">
+                                            <thead class="table-primary">
+                                                <tr class="text-center">
+                                                    <th>Raw Score</th>
+                                                    <th>T-Score</th>
+                                                    <th>Interpretasi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="conversionSampleBody" class="text-center"></tbody>
+                                        </table>
+                                    </div>
+                                    <p class="text-muted small mt-3">
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        <strong>Rumus T-Score:</strong> T = 50 + 10 × (X - Mean) / SD
+                                        <br>
+                                        <i class="bi bi-lightbulb me-1"></i>
+                                        Dimana X adalah raw score, Mean dan SD dari populasi normatif.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
