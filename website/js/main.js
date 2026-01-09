@@ -1,18 +1,76 @@
 // ============================================================================
-// EPPS Analysis Dashboard - Main JavaScript
+// EPPS Analysis Dashboard - Main JavaScript with Embedded Data
 // ============================================================================
+
+// ============================================================================
+// EMBEDDED DATA (Fallback when CSV fetch fails)
+// ============================================================================
+const EMBEDDED_DATA = {
+    gender: [
+        { Kategori: "Laki-laki", Frekuensi: "3891", "Persentase.Freq": "60.19" },
+        { Kategori: "Perempuan", Frekuensi: "2573", "Persentase.Freq": "39.81" }
+    ],
+    education: [
+        { Kategori: "SMA", Frekuensi: "2156", "Persentase.Freq": "33.35" },
+        { Kategori: "D3", Frekuensi: "1289", "Persentase.Freq": "19.94" },
+        { Kategori: "S1", Frekuensi: "2431", "Persentase.Freq": "37.61" },
+        { Kategori: "S2", Frekuensi: "512", "Persentase.Freq": "7.92" },
+        { Kategori: "S3", Frekuensi: "76", "Persentase.Freq": "1.18" }
+    ],
+    reliability: [
+        { Aspek: "Achievement", Jumlah_Item: "28", Omega: "0.598" },
+        { Aspek: "Deference", Jumlah_Item: "28", Omega: "0.490" },
+        { Aspek: "Order", Jumlah_Item: "28", Omega: "0.753" },
+        { Aspek: "Exhibition", Jumlah_Item: "28", Omega: "0.511" },
+        { Aspek: "Autonomy", Jumlah_Item: "28", Omega: "0.604" },
+        { Aspek: "Affiliation", Jumlah_Item: "28", Omega: "0.571" },
+        { Aspek: "Intraception", Jumlah_Item: "28", Omega: "0.590" },
+        { Aspek: "Succorance", Jumlah_Item: "28", Omega: "0.739" },
+        { Aspek: "Dominance", Jumlah_Item: "28", Omega: "0.700" },
+        { Aspek: "Abasement", Jumlah_Item: "28", Omega: "0.644" },
+        { Aspek: "Nurturance", Jumlah_Item: "28", Omega: "0.664" },
+        { Aspek: "Change", Jumlah_Item: "28", Omega: "0.603" },
+        { Aspek: "Endurance", Jumlah_Item: "28", Omega: "0.712" },
+        { Aspek: "Heterosexuality", Jumlah_Item: "28", Omega: "0.848" },
+        { Aspek: "Aggression", Jumlah_Item: "28", Omega: "0.748" }
+    ],
+    descriptive: [
+        { Aspek: "Achievement", n: "6464", mean: "16.47", sd: "3.38", min: "4", max: "28", median: "16", skew: "-0.00" },
+        { Aspek: "Deference", n: "6464", mean: "14.46", sd: "3.36", min: "2", max: "26", median: "14", skew: "-0.11" },
+        { Aspek: "Order", n: "6464", mean: "17.39", sd: "4.57", min: "1", max: "28", median: "18", skew: "-0.31" },
+        { Aspek: "Exhibition", n: "6464", mean: "13.12", sd: "3.28", min: "1", max: "26", median: "13", skew: "0.08" },
+        { Aspek: "Autonomy", n: "6464", mean: "10.74", sd: "3.41", min: "0", max: "23", median: "11", skew: "0.20" },
+        { Aspek: "Affiliation", n: "6464", mean: "13.14", sd: "3.65", min: "1", max: "26", median: "13", skew: "0.09" },
+        { Aspek: "Intraception", n: "6464", mean: "17.07", sd: "3.68", min: "3", max: "27", median: "17", skew: "-0.02" },
+        { Aspek: "Succorance", n: "6464", mean: "11.34", sd: "4.47", min: "0", max: "28", median: "11", skew: "0.18" },
+        { Aspek: "Dominance", n: "6464", mean: "14.72", sd: "4.25", min: "2", max: "28", median: "14", skew: "0.28" },
+        { Aspek: "Abasement", n: "6464", mean: "16.90", sd: "3.75", min: "1", max: "28", median: "17", skew: "-0.22" },
+        { Aspek: "Nurturance", n: "6464", mean: "16.36", sd: "4.14", min: "3", max: "28", median: "16", skew: "-0.02" },
+        { Aspek: "Change", n: "6464", mean: "14.95", sd: "3.95", min: "2", max: "28", median: "15", skew: "0.14" },
+        { Aspek: "Endurance", n: "6464", mean: "18.35", sd: "4.25", min: "0", max: "28", median: "18", skew: "-0.24" },
+        { Aspek: "Heterosexuality", n: "6464", mean: "5.20", sd: "4.53", min: "0", max: "26", median: "4", skew: "1.02" },
+        { Aspek: "Aggression", n: "6464", mean: "9.78", sd: "4.33", min: "0", max: "26", median: "9", skew: "0.35" }
+    ]
+};
 
 // ============================================================================
 // INITIALIZATION
 // ============================================================================
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Initializing EPPS Dashboard...');
+
     // Initialize AOS (Animate On Scroll)
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        offset: 100
-    });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 100
+        });
+        console.log('✅ AOS initialized');
+    } else {
+        console.warn('⚠️ AOS library not loaded');
+    }
 
     // Initialize all components
     initScrollButton();
@@ -20,6 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loadReliabilityData();
     loadDescriptiveData();
     initSmoothScroll();
+
+    console.log('✅ Dashboard initialized successfully');
 });
 
 // ============================================================================
@@ -27,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================================================
 function initScrollButton() {
     const scrollBtn = document.getElementById('scrollTopBtn');
+    if (!scrollBtn) return;
 
     window.addEventListener('scroll', function() {
         if (window.pageYOffset > 300) {
@@ -90,22 +151,27 @@ function parseCSV(text) {
 // LOAD DEMOGRAPHICS DATA
 // ============================================================================
 async function loadDemographicsData() {
+    console.log('📊 Loading demographics data...');
+
     try {
-        // Gender Distribution
+        // Try to fetch from CSV files
         const genderResponse = await fetch('data/tables/01_Demografis_JenisKelamin.csv');
         const genderText = await genderResponse.text();
         const genderData = parseCSV(genderText);
 
-        createGenderChart(genderData);
-
-        // Education Distribution
         const eduResponse = await fetch('data/tables/01_Demografis_Pendidikan.csv');
         const eduText = await eduResponse.text();
         const eduData = parseCSV(eduText);
 
+        createGenderChart(genderData);
         createEducationChart(eduData);
+        console.log('✅ Demographics data loaded from CSV');
     } catch (error) {
-        console.error('Error loading demographics data:', error);
+        console.warn('⚠️ Could not fetch CSV, using embedded data:', error.message);
+        // Use embedded data as fallback
+        createGenderChart(EMBEDDED_DATA.gender);
+        createEducationChart(EMBEDDED_DATA.education);
+        console.log('✅ Demographics data loaded from embedded source');
     }
 }
 
@@ -114,7 +180,12 @@ async function loadDemographicsData() {
 // ============================================================================
 function createGenderChart(data) {
     const ctx = document.getElementById('genderChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error('❌ Gender chart canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating gender chart with data:', data);
 
     const labels = data.map(row => row.Kategori);
     const values = data.map(row => parseFloat(row.Frekuensi));
@@ -164,6 +235,8 @@ function createGenderChart(data) {
             }
         }
     });
+
+    console.log('✅ Gender chart created');
 }
 
 // ============================================================================
@@ -171,7 +244,12 @@ function createGenderChart(data) {
 // ============================================================================
 function createEducationChart(data) {
     const ctx = document.getElementById('educationChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error('❌ Education chart canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating education chart with data:', data);
 
     const labels = data.map(row => row.Kategori || row.Pendidikan);
     const values = data.map(row => parseFloat(row.Frekuensi));
@@ -254,12 +332,16 @@ function createEducationChart(data) {
         });
         legendDiv.innerHTML = legendHTML;
     }
+
+    console.log('✅ Education chart created');
 }
 
 // ============================================================================
 // LOAD RELIABILITY DATA
 // ============================================================================
 async function loadReliabilityData() {
+    console.log('📊 Loading reliability data...');
+
     try {
         const response = await fetch('data/tables/02_Reliabilitas_Aspek.csv');
         const text = await response.text();
@@ -267,8 +349,12 @@ async function loadReliabilityData() {
 
         createReliabilityChart(data);
         populateReliabilityTable(data);
+        console.log('✅ Reliability data loaded from CSV');
     } catch (error) {
-        console.error('Error loading reliability data:', error);
+        console.warn('⚠️ Could not fetch CSV, using embedded data:', error.message);
+        createReliabilityChart(EMBEDDED_DATA.reliability);
+        populateReliabilityTable(EMBEDDED_DATA.reliability);
+        console.log('✅ Reliability data loaded from embedded source');
     }
 }
 
@@ -277,7 +363,12 @@ async function loadReliabilityData() {
 // ============================================================================
 function createReliabilityChart(data) {
     const ctx = document.getElementById('reliabilityChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error('❌ Reliability chart canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating reliability chart with data:', data);
 
     const labels = data.map(row => row.Aspek);
     const omega = data.map(row => parseFloat(row.Omega));
@@ -355,6 +446,8 @@ function createReliabilityChart(data) {
             }
         }
     });
+
+    console.log('✅ Reliability chart created');
 }
 
 // ============================================================================
@@ -362,7 +455,12 @@ function createReliabilityChart(data) {
 // ============================================================================
 function populateReliabilityTable(data) {
     const tbody = document.getElementById('reliabilityTableBody');
-    if (!tbody) return;
+    if (!tbody) {
+        console.error('❌ Reliability table body not found');
+        return;
+    }
+
+    console.log('📋 Populating reliability table');
 
     let html = '';
     data.forEach(row => {
@@ -396,21 +494,30 @@ function populateReliabilityTable(data) {
 
     tbody.innerHTML = html;
 
-    // Initialize DataTable
-    if ($.fn.DataTable) {
-        $('#reliabilityTable').DataTable({
-            paging: false,
-            searching: false,
-            info: false,
-            order: [[2, 'desc']]
-        });
+    // Initialize DataTable if available
+    if (typeof $.fn.DataTable !== 'undefined') {
+        try {
+            $('#reliabilityTable').DataTable({
+                paging: false,
+                searching: false,
+                info: false,
+                order: [[2, 'desc']]
+            });
+            console.log('✅ Reliability table DataTable initialized');
+        } catch (e) {
+            console.warn('⚠️ DataTable initialization failed:', e.message);
+        }
     }
+
+    console.log('✅ Reliability table populated');
 }
 
 // ============================================================================
 // LOAD DESCRIPTIVE STATISTICS DATA
 // ============================================================================
 async function loadDescriptiveData() {
+    console.log('📊 Loading descriptive data...');
+
     try {
         const response = await fetch('data/tables/01_Deskriptif_Aspek.csv');
         const text = await response.text();
@@ -418,8 +525,12 @@ async function loadDescriptiveData() {
 
         createMeanScoresChart(data);
         populateDescriptiveTable(data);
+        console.log('✅ Descriptive data loaded from CSV');
     } catch (error) {
-        console.error('Error loading descriptive data:', error);
+        console.warn('⚠️ Could not fetch CSV, using embedded data:', error.message);
+        createMeanScoresChart(EMBEDDED_DATA.descriptive);
+        populateDescriptiveTable(EMBEDDED_DATA.descriptive);
+        console.log('✅ Descriptive data loaded from embedded source');
     }
 }
 
@@ -428,7 +539,12 @@ async function loadDescriptiveData() {
 // ============================================================================
 function createMeanScoresChart(data) {
     const ctx = document.getElementById('meanScoresChart');
-    if (!ctx) return;
+    if (!ctx) {
+        console.error('❌ Mean scores chart canvas not found');
+        return;
+    }
+
+    console.log('📈 Creating mean scores chart with data:', data);
 
     const labels = data.map(row => row.Aspek);
     const means = data.map(row => parseFloat(row.mean));
@@ -511,6 +627,8 @@ function createMeanScoresChart(data) {
             }
         }
     });
+
+    console.log('✅ Mean scores chart created');
 }
 
 // ============================================================================
@@ -518,7 +636,12 @@ function createMeanScoresChart(data) {
 // ============================================================================
 function populateDescriptiveTable(data) {
     const tbody = document.getElementById('descriptiveTableBody');
-    if (!tbody) return;
+    if (!tbody) {
+        console.error('❌ Descriptive table body not found');
+        return;
+    }
+
+    console.log('📋 Populating descriptive table');
 
     let html = '';
     data.forEach(row => {
@@ -538,15 +661,22 @@ function populateDescriptiveTable(data) {
 
     tbody.innerHTML = html;
 
-    // Initialize DataTable
-    if ($.fn.DataTable) {
-        $('#descriptiveTable').DataTable({
-            paging: false,
-            searching: true,
-            info: false,
-            order: [[2, 'desc']]
-        });
+    // Initialize DataTable if available
+    if (typeof $.fn.DataTable !== 'undefined') {
+        try {
+            $('#descriptiveTable').DataTable({
+                paging: false,
+                searching: true,
+                info: false,
+                order: [[2, 'desc']]
+            });
+            console.log('✅ Descriptive table DataTable initialized');
+        } catch (e) {
+            console.warn('⚠️ DataTable initialization failed:', e.message);
+        }
     }
+
+    console.log('✅ Descriptive table populated');
 }
 
 // ============================================================================
@@ -554,12 +684,14 @@ function populateDescriptiveTable(data) {
 // ============================================================================
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.padding = '0.5rem 0';
-        navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-    } else {
-        navbar.style.padding = '1rem 0';
-        navbar.style.boxShadow = 'none';
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.style.padding = '0.5rem 0';
+            navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        } else {
+            navbar.style.padding = '1rem 0';
+            navbar.style.boxShadow = 'none';
+        }
     }
 });
 
@@ -621,3 +753,5 @@ window.addEventListener('error', function(e) {
 console.log('%c EPPS Analysis Dashboard ', 'background: #4f46e5; color: white; font-size: 16px; padding: 10px;');
 console.log('%c Version 2.0 | PT. Nirmala Satya Development ', 'color: #4f46e5; font-size: 12px;');
 console.log('%c Developed by PT. Data Riset Nusantara (Darinusa) ', 'color: #666; font-size: 10px;');
+console.log('%c\n💡 Tip: Open this website using a local web server for best experience', 'color: #f59e0b; font-size: 11px;');
+console.log('%c   Example: python3 -m http.server 8000\n', 'color: #10b981; font-size: 10px;');
