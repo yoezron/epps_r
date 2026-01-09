@@ -23,7 +23,7 @@ DISUSUN OLEH:
   Tim Konsultan Psikometri
 
 TANGGAL LAPORAN:
-  08 Januari 2026 
+  09 Januari 2026 
 
 VERSI DOKUMEN:
   2.0 - Analisis Komprehensif dengan IRT Modern
@@ -507,57 +507,111 @@ McDonald's Omega umumnya lebih robust dibanding Cronbach's Alpha karena:
 • Memberikan estimasi reliabilitas yang lebih realistic
 
 
-✗ ERROR: Pembuatan Laporan Psikometrik 
-  Pesan error: no complete element pairs 
-character(0)
-[1] "./.git"        "./.Rproj.user" "./output"     
+✗ ERROR: Pembuatan Laporan Psikometrik Final - FAILED
+  Error: no complete element pairs 
+  Duration: 0.34 sec
 
-=== TABLES ===
- [1] "01_Aspect_Summary.csv"                 "01_Demografis_JenisKelamin.csv"       
- [3] "01_Demografis_Pendidikan.csv"          "01_Statistik_Usia.csv"                
- [5] "02_Deskriptif_Aspek.csv"               "03_Reliabilitas.csv"                  
- [7] "04_Korelasi_Aspek.csv"                 "25_Network_Centrality.csv"            
- [9] "26_Network_Clustering.csv"             "27_Network_EdgeWeights.csv"           
-[11] "28_Network_Communities.csv"            "29_Network_Centrality_Extended.csv"   
-[13] "29_Norma_RawScore.csv"                 "30_Network_Bridge_Centrality.csv"     
-[15] "30_Tabel_Konversi_TScore.csv"          "31_Distribusi_Kategori.csv"           
-[17] "31_Network_Global_Metrics.csv"         "32_Network_Cliques.csv"               
-[19] "33_Network_Dyad_Census.csv"            "33_Norma_JenisKelamin.csv"            
-[21] "34_Network_Triad_Census.csv"           "34_Norma_Pendidikan.csv"              
-[23] "35_Network_Community_Correlations.csv" "36_Network_Edge_Betweenness.csv"      
-[25] "37_Network_Shortest_Paths.csv"         "38_Network_Edge_Statistics.csv"       
-[27] "39_NCT_Gender_Comparison.csv"          "40_Node_Predictability.csv"           
-[29] "41_Most_Stable_Edges.csv"              "42_Least_Stable_Edges.csv"            
-[31] "43_Expected_Influence.csv"             "44_Network_Flow_Metrics.csv"          
-[33] "45_Network_Bottlenecks.csv"            "46_Network_Resilience.csv"            
-[35] "47_Small_World_Properties.csv"         "48_Centrality_Correlations.csv"       
-[37] "49_Network_Growth_Sequence.csv"        "50_Temporal_Network_Metrics.csv"      
-[39] "51_Network_3D_Coordinates.csv"         "52_Dashboard_NetworkStats.csv"        
-[41] "53_Dashboard_TopNodes.csv"             "54_Dashboard_StrongestEdges.csv"      
-[43] "55_Dashboard_Communities.csv"         
+==============================================================================
+                          EXECUTION SUMMARY
+==============================================================================
 
-=== PLOTS ===
- [1] "01_Korelasi_Aspek.png"                  "01_Profile_MeanScores_Enhanced.png"    
- [3] "02_Distribusi_Skor_Aspek.png"           "02_Heatmap_Hierarchical_Clustering.png"
- [5] "03_Distribution_With_Normal_Curve.png"  "04_Violin_Plot_Enhanced.png"           
- [7] "05_Radar_Chart_MultiLayer.png"          "Network_3D_Interactive.html"           
- [9] "Network_Aggression_Q1.png"              "Network_Aggression_Q2.png"             
-[11] "Network_Aggression_Q3.png"              "Network_Aggression_Q4.png"             
-[13] "Network_Bridge_Centrality.png"          "Network_Centrality.png"                
-[15] "Network_Centrality_Correlations.png"    "Network_Centrality_Extended.png"       
-[17] "Network_Circle_Layout.png"              "Network_Communities.png"               
-[19] "Network_Edge_Betweenness.png"           "Network_Edu_D3.png"                    
-[21] "Network_Edu_S1.png"                     "Network_Endurance_Q1.png"              
-[23] "Network_Endurance_Q2.png"               "Network_Endurance_Q3.png"              
-[25] "Network_Endurance_Q4.png"               "Network_Expected_Influence.png"        
-[27] "Network_Force_Directed_D3.html"         "Network_Gender_Comparison.png"         
-[29] "Network_GGM.png"                        "Network_Groups_Layout.png"             
-[31] "Network_Growth_Curve.png"               "Network_Heatmap.png"                   
-[33] "Network_Interactive_visNetwork.html"    "Network_Laki-laki.png"                 
-[35] "Network_Negative_Only.png"              "Network_Order_Q1.png"                  
-[37] "Network_Order_Q2.png"                   "Network_Order_Q3.png"                  
-[39] "Network_Order_Q4.png"                   "Network_Perempuan.png"                 
-[41] "Network_Positive_Only.png"              "Network_Predictability.png"            
-[43] "Network_Radial_Communities.html"        "Network_Resilience.png"                
-[45] "Network_Sankey_TopConnections.html"     "Network_Spring_Layout.png"             
-[47] "Network_Temporal_Changes.png"           "Network_With_Predictability.png"       
+Total Scripts          : 13 
+  ✓ Success            : 11 
+  ✗ Failed             : 2 
+  ⊘ Skipped            : 0 
+Total Execution Time   : 995.74 minutes
+
+Detailed Results:
+-------------------------------------------------------------------------------- 
+Script                                   Status            Duration
+-------------------------------------------------------------------------------- 
+setup                                    ✓ SUCCESS        9.2 sec
+deskriptif                               ✓ SUCCESS       11.9 sec
+irt_2pl                                  ✓ SUCCESS      293.3 sec
+irt_3pl                                  ✓ SUCCESS     4774.0 sec
+mirt                                     ✓ SUCCESS        2.4 sec
+grm                                      ✓ SUCCESS        0.7 sec
+network                                  ✓ SUCCESS        3.4 sec
+network_advanced                         ✓ SUCCESS        8.9 sec
+network_comparative                      ✓ SUCCESS       59.8 sec
+network_interactive                      ✓ SUCCESS       24.5 sec
+norma                                    ✓ SUCCESS        0.8 sec
+viz                                      ⚠ FAILED (opt)    7.5 sec
+laporan                                  ✗ FAILED         0.3 sec
+-------------------------------------------------------------------------------- 
+
+⚠ Total Warnings Generated: 77 
+  (Check individual script outputs for details)
+
+==============================================================================
+                          OUTPUT FILES GENERATED
+==============================================================================
+
+📊 CSV Tables (output/tables/):
+   Total: 52 files
+   Sample files:
+     - 01_Aspect_Summary.csv 
+     - 01_Demografis_JenisKelamin.csv 
+     - 01_Demografis_Pendidikan.csv 
+     - 01_Deskriptif_Aspek.csv 
+     - 01_Statistik_Usia.csv 
+     ... and 47 more
+
+📈 Visualizations (output/plots/):
+   PNG plots: 104 files
+   HTML interactive: 5 files
+   Total: 109 files
+
+🔧 Saved Models (output/models/):
+   Total: 30 files
+   Sample files:
+     - 2PL_ABA.rds 
+     - 2PL_ACH.rds 
+     - 2PL_AFF.rds 
+     - 2PL_AGG.rds 
+     - 2PL_AUT.rds 
+     ... and 25 more
+
+📄 Reports (output/reports/):
+   (None generated)
+
+==============================================================================
+                          NEXT STEPS
+==============================================================================
+
+⚠ ATTENTION: Some scripts failed
+
+Failed scripts:
+  ✗ laporan 
+    Error: no complete element pairs 
+
+Recommendation:
+1. Check the error messages above
+2. Fix any data or configuration issues
+3. Re-run specific scripts or MASTER_RUN_ALL.R
+
+==============================================================================
+                          USAGE GUIDE
+==============================================================================
+
+To run this master script again:
+  source("MASTER_RUN_ALL.R")
+
+To run individual scripts:
+  load("output/data_processed.RData")
+  source("03_IRT_2PL.R")  # Example
+
+To launch dashboard:
+  source("RUN_DASHBOARD.R")
+
+Configuration options (edit at top of MASTER_RUN_ALL.R):
+  SKIP_TIRT <- TRUE/FALSE          # Skip Thurstonian IRT
+  SKIP_NETWORK_BOOTSTRAP <- TRUE/FALSE  # Skip bootstrap analysis
+  INSTALL_MISSING <- TRUE/FALSE    # Auto-install packages
+
+==============================================================================
+Waktu selesai: 2026-01-09 15:25:54 
+
+Log file saved: output/analysis_log.txt 
+==============================================================================
+

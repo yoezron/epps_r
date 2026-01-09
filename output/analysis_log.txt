@@ -1,95 +1,95 @@
-[2026-01-08 21:53:35] INFO: Analysis log initialized
-[2026-01-08 21:53:36] INFO: Raw data loaded: 6464 rows, 429 columns
-[2026-01-08 21:53:36] INFO: Removed empty/BOM column
-[2026-01-08 21:53:36] INFO: Detected 8 demographic columns
-[2026-01-08 21:53:38] INFO: Aspect ACH (Achievement): 28 items aggregated
-[2026-01-08 21:53:38] INFO: Aspect DEF (Deference): 28 items aggregated
-[2026-01-08 21:53:38] INFO: Aspect ORD (Order): 28 items aggregated
-[2026-01-08 21:53:39] INFO: Aspect EXH (Exhibition): 28 items aggregated
-[2026-01-08 21:53:39] INFO: Aspect AUT (Autonomy): 28 items aggregated
-[2026-01-08 21:53:39] INFO: Aspect AFF (Affiliation): 28 items aggregated
-[2026-01-08 21:53:39] INFO: Aspect INT (Intraception): 28 items aggregated
-[2026-01-08 21:53:40] INFO: Aspect SUC (Succorance): 28 items aggregated
-[2026-01-08 21:53:40] INFO: Aspect DOM (Dominance): 28 items aggregated
-[2026-01-08 21:53:41] INFO: Aspect ABA (Abasement): 28 items aggregated
-[2026-01-08 21:53:41] INFO: Aspect NUR (Nurturance): 28 items aggregated
-[2026-01-08 21:53:41] INFO: Aspect CHG (Change): 28 items aggregated
-[2026-01-08 21:53:42] INFO: Aspect END (Endurance): 28 items aggregated
-[2026-01-08 21:53:42] INFO: Aspect HET (Heterosexuality): 28 items aggregated
-[2026-01-08 21:53:42] INFO: Aspect AGG (Aggression): 28 items aggregated
-[2026-01-08 21:53:44] INFO: Processed data saved to output/data_processed.RData
-[2026-01-08 22:03:18] INFO: === STARTING NETWORK ANALYSIS ===
-[2026-01-08 22:03:18] INFO: Network Analysis: Data loaded successfully
-[2026-01-08 22:03:18] INFO: Estimating Gaussian Graphical Model (GGM)
-[2026-01-08 22:03:19] INFO: Network plot saved: Network_GGM.png
-[2026-01-08 22:03:19] INFO: Computing centrality measures
-[2026-01-08 22:03:19] WARN: Standard centrality failed, computing from graph
-[2026-01-08 22:03:19] INFO: Centrality table saved: 25_Network_Centrality.csv
-[2026-01-08 22:03:19] INFO: Centrality plot saved: Network_Centrality.png
-[2026-01-08 22:03:19] INFO: Computing clustering coefficient
-[2026-01-08 22:03:19] INFO: Clustering table saved: 26_Network_Clustering.csv
-[2026-01-08 22:03:19] INFO: Checking network stability configuration
-[2026-01-08 22:03:19] INFO: Bootstrap skipped (CONFIG_NETWORK_RUN_BOOTSTRAP = FALSE)
-[2026-01-08 22:03:19] INFO: Edge weights table saved: 27_Network_EdgeWeights.csv
-[2026-01-08 22:03:19] INFO: Performing community detection
-[2026-01-08 22:03:19] INFO: Communities table saved: 28_Network_Communities.csv
-[2026-01-08 22:03:21] INFO: Community plot saved: Network_Communities.png
-[2026-01-08 22:03:21] INFO: === NETWORK ANALYSIS COMPLETED ===
-[2026-01-08 22:03:21] INFO: Network stability analysis: skipped
-[2026-01-08 22:03:21] INFO: Tables saved: 25-28 (Centrality, Clustering, EdgeWeights, Communities)
-[2026-01-08 22:03:21] INFO: Plots saved: Network_GGM, Network_Centrality, Network_Communities
-[2026-01-08 22:03:21] INFO: === STARTING ADVANCED NETWORK ANALYSIS ===
-[2026-01-08 22:03:21] INFO: Advanced Network: Data loaded successfully
-[2026-01-08 22:03:21] INFO: Estimating network with multiple methods
-[2026-01-08 22:03:21] INFO: Networks estimated successfully
-[2026-01-08 22:03:21] INFO: Creating network visualizations with multiple layouts
-[2026-01-08 22:03:24] INFO: Network plots created (Spring, Circle, Groups)
-[2026-01-08 22:03:24] INFO: Computing extended centrality measures
-[2026-01-08 22:03:24] INFO: Extended centrality table saved: 29_Network_Centrality_Extended.csv
-[2026-01-08 22:03:30] INFO: === ADVANCED NETWORK ANALYSIS COMPLETED ===
-[2026-01-08 22:03:30] INFO: Tables saved: 29-38 (Extended centrality, Bridge, Global metrics, etc.)
-[2026-01-08 22:03:30] INFO: Plots saved: Multiple layouts, Heatmap, Edge betweenness, Positive/Negative networks
-[2026-01-08 22:03:30] INFO: Network density: 1.000
-[2026-01-08 22:03:30] INFO: Transitivity: 1.000
-[2026-01-08 22:03:30] INFO: Number of communities: 2
-[2026-01-08 22:03:30] INFO: Positive edges: 30, Negative edges: 75
-[2026-01-08 22:03:30] INFO: === STARTING COMPARATIVE NETWORK ANALYSIS ===
-[2026-01-08 22:03:30] INFO: Comparative Network: Data loaded successfully
-[2026-01-08 22:03:30] INFO: Starting network comparison by gender
-[2026-01-08 22:04:16] INFO: Running edge stability bootstrap (500 iterations)
-[2026-01-08 22:04:20] INFO: === COMPARATIVE NETWORK ANALYSIS COMPLETED ===
-[2026-01-08 22:04:20] INFO: Tables saved: 39-48 (NCT, Predictability, Stability, Influence, etc.)
-[2026-01-08 22:04:20] INFO: Plots saved: Gender/Education networks, Predictability, Resilience, etc.
-[2026-01-08 22:04:20] INFO: Key analyses: Network comparison, Node predictability, Edge stability, Flow analysis
-[2026-01-08 22:04:20] INFO: === STARTING INTERACTIVE NETWORK & DYNAMIC ANALYSIS ===
-[2026-01-08 22:04:20] INFO: Interactive Network: Data loaded successfully
-[2026-01-08 22:04:20] INFO: Preparing network data for interactive visualization
-[2026-01-08 22:04:20] INFO: Network data prepared for interactive visualization
-[2026-01-08 22:04:20] INFO: Creating interactive network (visNetwork)
-[2026-01-08 22:04:22] INFO: Interactive visNetwork saved: Network_Interactive_visNetwork.html
-[2026-01-08 22:04:22] INFO: Creating force-directed network (D3)
-[2026-01-08 22:04:23] INFO: Force-directed network saved: Network_Force_Directed_D3.html
-[2026-01-08 22:04:23] INFO: Creating Sankey diagram for top connections
-[2026-01-08 22:04:23] INFO: Sankey diagram saved: Network_Sankey_TopConnections.html
-[2026-01-08 22:04:23] INFO: Creating radial network visualization
-[2026-01-08 22:04:24] INFO: Radial network saved: Network_Radial_Communities.html
-[2026-01-08 22:04:24] INFO: Creating network growth animation data
-[2026-01-08 22:04:24] INFO: Growth sequence table saved: 49_Network_Growth_Sequence.csv
-[2026-01-08 22:04:25] INFO: Growth curve plot saved: Network_Growth_Curve.png
-[2026-01-08 22:04:25] INFO: Creating networks by score quartiles
-[2026-01-08 22:04:28] INFO: Quartile networks created for: Order
-[2026-01-08 22:04:31] INFO: Quartile networks created for: Aggression
-[2026-01-08 22:04:35] INFO: Quartile networks created for: Endurance
-[2026-01-08 22:04:35] INFO: Simulating temporal network changes
-[2026-01-08 22:04:35] INFO: Temporal metrics table saved: 50_Temporal_Network_Metrics.csv
-[2026-01-08 22:04:36] INFO: Temporal plot saved: Network_Temporal_Changes.png
-[2026-01-08 22:04:36] INFO: Preparing 3D network visualization data
-[2026-01-08 22:04:36] INFO: 3D coordinates table saved: 51_Network_3D_Coordinates.csv
-[2026-01-08 22:04:40] INFO: 3D network visualization saved: Network_3D_Interactive.html
-[2026-01-08 22:04:40] INFO: Creating dashboard summary data
-[2026-01-08 22:04:40] INFO: Dashboard data tables saved: 52-55
-[2026-01-08 22:04:40] INFO: === INTERACTIVE & DYNAMIC NETWORK ANALYSIS COMPLETED ===
-[2026-01-08 22:04:40] INFO: Interactive visualizations: visNetwork, Force-Directed D3, Sankey, Radial, 3D Plotly
-[2026-01-08 22:04:40] INFO: Static visualizations: Growth curve, Temporal changes, Quartile networks
-[2026-01-08 22:04:40] INFO: Tables saved: 49-55 (Growth, Temporal, 3D, Dashboard summaries)
-[2026-01-08 22:04:40] INFO: Interactive HTML files ready for web browser exploration
+[2026-01-08 22:50:09] INFO: Analysis log initialized
+[2026-01-08 22:50:10] INFO: Raw data loaded: 6464 rows, 429 columns
+[2026-01-08 22:50:10] INFO: Removed empty/BOM column
+[2026-01-08 22:50:11] INFO: Detected 8 demographic columns
+[2026-01-08 22:50:12] INFO: Aspect ACH (Achievement): 28 items aggregated
+[2026-01-08 22:50:12] INFO: Aspect DEF (Deference): 28 items aggregated
+[2026-01-08 22:50:12] INFO: Aspect ORD (Order): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect EXH (Exhibition): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect AUT (Autonomy): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect AFF (Affiliation): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect INT (Intraception): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect SUC (Succorance): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect DOM (Dominance): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect ABA (Abasement): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect NUR (Nurturance): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect CHG (Change): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect END (Endurance): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect HET (Heterosexuality): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect AGG (Aggression): 28 items aggregated
+[2026-01-08 22:50:18] INFO: Processed data saved to output/data_processed.RData
+[2026-01-09 14:14:41] INFO: === STARTING NETWORK ANALYSIS ===
+[2026-01-09 14:14:41] INFO: Network Analysis: Data loaded successfully
+[2026-01-09 14:14:41] INFO: Estimating Gaussian Graphical Model (GGM)
+[2026-01-09 14:14:43] INFO: Network plot saved: Network_GGM.png
+[2026-01-09 14:14:43] INFO: Computing centrality measures
+[2026-01-09 14:14:43] WARN: Standard centrality failed, computing from graph
+[2026-01-09 14:14:43] INFO: Centrality table saved: 25_Network_Centrality.csv
+[2026-01-09 14:14:43] INFO: Centrality plot saved: Network_Centrality.png
+[2026-01-09 14:14:43] INFO: Computing clustering coefficient
+[2026-01-09 14:14:43] INFO: Clustering table saved: 26_Network_Clustering.csv
+[2026-01-09 14:14:43] INFO: Checking network stability configuration
+[2026-01-09 14:14:43] INFO: Bootstrap skipped (CONFIG_NETWORK_RUN_BOOTSTRAP = FALSE)
+[2026-01-09 14:14:43] INFO: Edge weights table saved: 27_Network_EdgeWeights.csv
+[2026-01-09 14:14:43] INFO: Performing community detection
+[2026-01-09 14:14:43] INFO: Communities table saved: 28_Network_Communities.csv
+[2026-01-09 14:14:44] INFO: Community plot saved: Network_Communities.png
+[2026-01-09 14:14:44] INFO: === NETWORK ANALYSIS COMPLETED ===
+[2026-01-09 14:14:44] INFO: Network stability analysis: skipped
+[2026-01-09 14:14:44] INFO: Tables saved: 25-28 (Centrality, Clustering, EdgeWeights, Communities)
+[2026-01-09 14:14:44] INFO: Plots saved: Network_GGM, Network_Centrality, Network_Communities
+[2026-01-09 14:14:44] INFO: === STARTING ADVANCED NETWORK ANALYSIS ===
+[2026-01-09 14:14:45] INFO: Advanced Network: Data loaded successfully
+[2026-01-09 14:14:45] INFO: Estimating network with multiple methods
+[2026-01-09 14:14:45] INFO: Networks estimated successfully
+[2026-01-09 14:14:45] INFO: Creating network visualizations with multiple layouts
+[2026-01-09 14:14:48] INFO: Network plots created (Spring, Circle, Groups)
+[2026-01-09 14:14:48] INFO: Computing extended centrality measures
+[2026-01-09 14:14:48] INFO: Extended centrality table saved: 29_Network_Centrality_Extended.csv
+[2026-01-09 14:14:53] INFO: === ADVANCED NETWORK ANALYSIS COMPLETED ===
+[2026-01-09 14:14:53] INFO: Tables saved: 29-38 (Extended centrality, Bridge, Global metrics, etc.)
+[2026-01-09 14:14:53] INFO: Plots saved: Multiple layouts, Heatmap, Edge betweenness, Positive/Negative networks
+[2026-01-09 14:14:53] INFO: Network density: 1.000
+[2026-01-09 14:14:53] INFO: Transitivity: 1.000
+[2026-01-09 14:14:53] INFO: Number of communities: 2
+[2026-01-09 14:14:53] INFO: Positive edges: 30, Negative edges: 75
+[2026-01-09 14:14:53] INFO: === STARTING COMPARATIVE NETWORK ANALYSIS ===
+[2026-01-09 14:14:54] INFO: Comparative Network: Data loaded successfully
+[2026-01-09 14:14:54] INFO: Starting network comparison by gender
+[2026-01-09 14:15:48] INFO: Running edge stability bootstrap (500 iterations)
+[2026-01-09 14:15:53] INFO: === COMPARATIVE NETWORK ANALYSIS COMPLETED ===
+[2026-01-09 14:15:53] INFO: Tables saved: 39-48 (NCT, Predictability, Stability, Influence, etc.)
+[2026-01-09 14:15:53] INFO: Plots saved: Gender/Education networks, Predictability, Resilience, etc.
+[2026-01-09 14:15:53] INFO: Key analyses: Network comparison, Node predictability, Edge stability, Flow analysis
+[2026-01-09 14:15:53] INFO: === STARTING INTERACTIVE NETWORK & DYNAMIC ANALYSIS ===
+[2026-01-09 14:15:54] INFO: Interactive Network: Data loaded successfully
+[2026-01-09 14:15:54] INFO: Preparing network data for interactive visualization
+[2026-01-09 14:15:54] INFO: Network data prepared for interactive visualization
+[2026-01-09 14:15:54] INFO: Creating interactive network (visNetwork)
+[2026-01-09 14:15:56] INFO: Interactive visNetwork saved: Network_Interactive_visNetwork.html
+[2026-01-09 14:15:56] INFO: Creating force-directed network (D3)
+[2026-01-09 14:15:57] INFO: Force-directed network saved: Network_Force_Directed_D3.html
+[2026-01-09 14:15:57] INFO: Creating Sankey diagram for top connections
+[2026-01-09 14:15:57] INFO: Sankey diagram saved: Network_Sankey_TopConnections.html
+[2026-01-09 14:15:57] INFO: Creating radial network visualization
+[2026-01-09 14:15:58] INFO: Radial network saved: Network_Radial_Communities.html
+[2026-01-09 14:15:58] INFO: Creating network growth animation data
+[2026-01-09 14:15:59] INFO: Growth sequence table saved: 49_Network_Growth_Sequence.csv
+[2026-01-09 14:15:59] INFO: Growth curve plot saved: Network_Growth_Curve.png
+[2026-01-09 14:15:59] INFO: Creating networks by score quartiles
+[2026-01-09 14:16:04] INFO: Quartile networks created for: Order
+[2026-01-09 14:16:08] INFO: Quartile networks created for: Aggression
+[2026-01-09 14:16:12] INFO: Quartile networks created for: Endurance
+[2026-01-09 14:16:12] INFO: Simulating temporal network changes
+[2026-01-09 14:16:12] INFO: Temporal metrics table saved: 50_Temporal_Network_Metrics.csv
+[2026-01-09 14:16:13] INFO: Temporal plot saved: Network_Temporal_Changes.png
+[2026-01-09 14:16:13] INFO: Preparing 3D network visualization data
+[2026-01-09 14:16:13] INFO: 3D coordinates table saved: 51_Network_3D_Coordinates.csv
+[2026-01-09 14:16:17] INFO: 3D network visualization saved: Network_3D_Interactive.html
+[2026-01-09 14:16:17] INFO: Creating dashboard summary data
+[2026-01-09 14:16:18] INFO: Dashboard data tables saved: 52-55
+[2026-01-09 14:16:18] INFO: === INTERACTIVE & DYNAMIC NETWORK ANALYSIS COMPLETED ===
+[2026-01-09 14:16:18] INFO: Interactive visualizations: visNetwork, Force-Directed D3, Sankey, Radial, 3D Plotly
+[2026-01-09 14:16:18] INFO: Static visualizations: Growth curve, Temporal changes, Quartile networks
+[2026-01-09 14:16:18] INFO: Tables saved: 49-55 (Growth, Temporal, 3D, Dashboard summaries)
+[2026-01-09 14:16:18] INFO: Interactive HTML files ready for web browser exploration

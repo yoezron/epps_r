@@ -1,0 +1,268 @@
+Working directory: D:/1 NSD Project/EPPS/EPPS-Analysis 
+
+------------------------------------------------------------------------------
+VALIDASI PRE-REQUISITES
+------------------------------------------------------------------------------
+
+[1/5] Checking data file...
+      ✓ File data ditemukan: epps_raw.csv
+[2/5] Checking script files...
+      ✓ Semua 16 script ditemukan
+[3/5] Checking required packages...
+      ✓ All required packages available
+[4/5] Loading configuration...
+
+✓ Configuration file loaded successfully
+  Run print_config() to see all settings
+
+      ✓ Configuration loaded
+[5/5] Loading utility functions...
+
+✓ Utility functions loaded successfully
+  Available functions: 367 
+  Run ls() to see all available utilities
+
+      ✓ Utility functions loaded
+
+✓ All pre-requisites validated
+
+==============================================================================
+MEMULAI ANALISIS PSIKOMETRIK
+==============================================================================
+
+========== PHASE 1: DATA PREPARATION ==========
+
+------------------------------------------------------------------------------
+>>> RUNNING: Setup dan Persiapan Data 
+    Script: 01_Setup_Data.R 
+    Time: 22:50:09 
+------------------------------------------------------------------------------
+
+✓ Configuration file loaded successfully
+  Run print_config() to see all settings
+
+
+✓ Utility functions loaded successfully
+  Available functions: 367 
+  Run ls() to see all available utilities
+
+
+================================================================================ 
+EPPS DATA SETUP AND PREPARATION 
+================================================================================ 
+
+[22:50:09] Loading required packages...
+[22:50:09] Creating output directories...
+[2026-01-08 22:50:09] INFO: Analysis log initialized
+[22:50:09] Loading raw data...
+[2026-01-08 22:50:10] INFO: Raw data loaded: 6464 rows, 429 columns
+[22:50:10] Cleaning data...
+[2026-01-08 22:50:10] INFO: Removed empty/BOM column
+[22:50:10] Identifying demographic and item columns...
+[2026-01-08 22:50:11] INFO: Detected 8 demographic columns
+[22:50:11] Converting items to numeric...
+[22:50:11] Extracting aspect names from item columns...
+[22:50:12] Aggregating scores by aspect...
+[2026-01-08 22:50:12] INFO: Aspect ACH (Achievement): 28 items aggregated
+[2026-01-08 22:50:12] INFO: Aspect DEF (Deference): 28 items aggregated
+[2026-01-08 22:50:12] INFO: Aspect ORD (Order): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect EXH (Exhibition): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect AUT (Autonomy): 28 items aggregated
+[2026-01-08 22:50:13] INFO: Aspect AFF (Affiliation): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect INT (Intraception): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect SUC (Succorance): 28 items aggregated
+[2026-01-08 22:50:14] INFO: Aspect DOM (Dominance): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect ABA (Abasement): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect NUR (Nurturance): 28 items aggregated
+[2026-01-08 22:50:15] INFO: Aspect CHG (Change): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect END (Endurance): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect HET (Heterosexuality): 28 items aggregated
+[2026-01-08 22:50:16] INFO: Aspect AGG (Aggression): 28 items aggregated
+[22:50:16] Combining demographic and score data...
+[22:50:16] Saving processed data...
+[2026-01-08 22:50:18] INFO: Processed data saved to output/data_processed.RData
+
+================================================================================ 
+DATA PROCESSING SUMMARY 
+================================================================================ 
+
+Data File          : epps_raw.csv 
+Total Respondents  : 6464 
+Total Items        : 420 
+Aspects Analyzed   : 15 
+Missing Data       : 0.00% 
+
+
+-------------------------------------------------------------------------------- 
+Items per Aspect 
+-------------------------------------------------------------------------------- 
+
+ Code          Aspect Items Mean_Score SD_Score
+  ACH     Achievement    28      16.47     3.38
+  DEF       Deference    28      14.46     3.36
+  ORD           Order    28      17.39     4.57
+  EXH      Exhibition    28      13.12     3.28
+  AUT        Autonomy    28      10.74     3.41
+  AFF     Affiliation    28      13.14     3.65
+  INT    Intraception    28      17.07     3.68
+  SUC      Succorance    28      11.34     4.47
+  DOM       Dominance    28      14.72     4.25
+  ABA       Abasement    28      16.90     3.75
+  NUR      Nurturance    28      16.36     4.14
+  CHG          Change    28      14.95     3.95
+  END       Endurance    28      18.35     4.25
+  HET Heterosexuality    28       5.20     4.53
+  AGG      Aggression    28       9.78     4.33
+Table saved: output/tables/01_Aspect_Summary.csv 
+
+
+================================================================================ 
+DATA SETUP COMPLETE 
+================================================================================ 
+
+✓ All data processed and saved successfully
+✓ Ready for analysis
+
+Next: Run 02_Deskriptif_CTT.R for descriptive statistics
+
+
+✓ SUCCESS: Setup dan Persiapan Data ( 9.17  sec)
+
+========== PHASE 2: DESCRIPTIVE & CLASSICAL TEST THEORY ==========
+
+------------------------------------------------------------------------------
+>>> RUNNING: Analisis Deskriptif dan Reliabilitas 
+    Script: 02_Deskriptif_CTT.R 
+    Time: 22:50:18 
+------------------------------------------------------------------------------
+
+=== ANALISIS DESKRIPTIF DEMOGRAFIS ===
+
+=== STATISTIK DESKRIPTIF SKOR ASPEK ===
+
+=== ANALISIS RELIABILITAS ===
+
+=== ITEM ANALYSIS ===
+
+=== KORELASI ANTAR ASPEK ===
+
+=== ANALISIS DESKRIPTIF SELESAI ===
+Output tersimpan di folder output/tables/ dan output/plots/
+
+✓ SUCCESS: Analisis Deskriptif dan Reliabilitas ( 11.89  sec)
+  Note: 15 warning(s) generated
+
+========== PHASE 3: ITEM RESPONSE THEORY MODELS ==========
+
+------------------------------------------------------------------------------
+>>> RUNNING: IRT 2-Parameter Logistic Model 
+    Script: 03_IRT_2PL.R 
+    Time: 22:50:30 
+------------------------------------------------------------------------------
+
+=== ANALISIS IRT 2PL PER ASPEK ===
+
+Memproses aspek: Achievement 
+
+Memproses aspek: Deference 
+
+Memproses aspek: Order 
+
+Memproses aspek: Exhibition 
+
+Memproses aspek: Autonomy 
+
+Memproses aspek: Affiliation 
+
+Memproses aspek: Intraception 
+
+Memproses aspek: Succorance 
+
+Memproses aspek: Dominance 
+
+Memproses aspek: Abasement 
+
+Memproses aspek: Nurturance 
+
+Memproses aspek: Change 
+
+Memproses aspek: Endurance 
+
+Memproses aspek: Heterosexuality 
+
+Memproses aspek: Aggression 
+
+=== ANALISIS 2PL SELESAI ===
+Total aspek dianalisis: 15 
+Output tersimpan di output/tables/ dan output/plots/
+
+✓ SUCCESS: IRT 2-Parameter Logistic Model ( 293.33  sec)
+  Note: 15 warning(s) generated
+
+------------------------------------------------------------------------------
+>>> RUNNING: IRT 3-Parameter Logistic Model 
+    Script: 04_IRT_3PL.R 
+    Time: 22:55:24 
+------------------------------------------------------------------------------
+
+=== ANALISIS IRT 3PL PER ASPEK ===
+
+Memproses aspek: Achievement 
+
+Memproses aspek: Deference 
+
+Memproses aspek: Order 
+
+Memproses aspek: Exhibition 
+
+Memproses aspek: Autonomy 
+
+Memproses aspek: Affiliation 
+
+Memproses aspek: Intraception 
+
+Memproses aspek: Succorance 
+
+------------------------------------------------------------------------------
+>>> RUNNING: IRT 3-Parameter Logistic Model 
+    Script: 04_IRT_3PL.R 
+    Time: 10:02:42 
+------------------------------------------------------------------------------
+
+=== ANALISIS IRT 3PL PER ASPEK ===
+
+Memproses aspek: Achievement 
+
+Memproses aspek: Deference 
+
+Memproses aspek: Order 
+
+Memproses aspek: Exhibition 
+
+Memproses aspek: Autonomy 
+
+Memproses aspek: Affiliation 
+
+Memproses aspek: Intraception 
+
+Memproses aspek: Succorance 
+
+Memproses aspek: Dominance 
+
+Memproses aspek: Abasement 
+
+Memproses aspek: Nurturance 
+
+Memproses aspek: Change 
+
+Memproses aspek: Endurance 
+
+Memproses aspek: Heterosexuality 
+
+Memproses aspek: Aggression 
+
+=== ANALISIS 3PL SELESAI ===
+Total aspek dianalisis: 15 
+
+✓ SUCCESS: IRT 3-Parameter Logistic Model ( 4774.04  sec)
+  Note: 26 warning(s) generated
